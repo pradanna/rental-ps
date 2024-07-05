@@ -56,8 +56,8 @@
         {{-- SIDEBAR --}}
         <div class="sidebar ">
             <div class="logo-container">
-                <img class="company-logos" src="{{ asset('images/local/logo-yousee-panjang.png') }}" />
-                <img class="company-logos-minimize" src="{{ asset('images/local/logo-yousee.png') }}" />
+                <img class="company-logos" src="{{ asset('images/local/logo.png') }}" />
+                <img class="company-logos-minimize" src="{{ asset('images/local/logo.png') }}" />
             </div>
             <div class="menu-container">
 
@@ -74,86 +74,34 @@
 
 
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/profile') ? 'active' : '' }}"
-                            href="/admin/profile"><span class="material-symbols-outlined">
-                                account_circle
+                        <a class="menu tooltip {{ Request::is('admin/kategori') ? 'active' : '' }}"
+                            href="/admin/kategori"><span class="material-symbols-outlined">
+                                category
                             </span>
-                            <span class="text-menu"> Profile</span>
-                            <span class="tooltiptext">Profile</span>
+                            <span class="text-menu"> Kategori</span>
+                            <span class="tooltiptext">Kategori</span>
                         </a>
                     </li>
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/service') ? 'active' : '' }}"
-                            href="/admin/service">
+                        <a class="menu tooltip {{ Request::is('admin/barang') ? 'active' : '' }}" href="/admin/barang">
 
 
                             <span class="material-symbols-outlined">
-                                home_repair_service
+                                package
                             </span>
-                            <span class="text-menu"> Service</span>
-                            <span class="tooltiptext">Service</span>
+                            <span class="text-menu"> Data Barang</span>
+                            <span class="tooltiptext">Data Barang</span>
                         </a>
                     </li>
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/artikel') ? 'active' : '' }}"
-                            href="/admin/artikel">
+                        <a class="menu tooltip {{ Request::is('admin/pesanan') ? 'active' : '' }}"
+                            href="/admin/pesanan">
 
                             <span class="material-symbols-outlined">
-                                newsmode
+                                history
                             </span>
-                            <span class="text-menu"> Artikel</span>
-                            <span class="tooltiptext">Artikel</span>
-                        </a>
-                    </li>
-
-
-
-
-
-                    <li>
-                        <a class="menu tooltip {{ Request::is('admin/portfolio') ? 'active' : '' }}"
-                            href="/admin/portfolio">
-
-
-                            <span class="material-symbols-outlined">
-                                work_history
-                            </span>
-                            <span class="text-menu"> Portfolio</span>
-                            <span class="tooltiptext">Portfolio</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu tooltip {{ Request::is('admin/clients') ? 'active' : '' }}"
-                            href="/admin/clients">
-
-
-                            <span class="material-symbols-outlined">
-                                group
-                            </span>
-                            <span class="text-menu"> Clients</span>
-                            <span class="tooltiptext">Clients</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu tooltip {{ Request::is('admin/testimoni') ? 'active' : '' }}"
-                            href="/admin/testimoni">
-
-                            <span class="material-symbols-outlined">
-                                forum
-                            </span>
-                            <span class="text-menu"> Testimoni</span>
-                            <span class="tooltiptext">Testimoni</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu tooltip {{ Request::is('admin/about') ? 'active' : '' }}" href="/admin/about">
-
-
-                            <span class="material-symbols-outlined">
-                                info
-                            </span>
-                            <span class="text-menu"> About</span>
-                            <span class="tooltiptext">About</span>
+                            <span class="text-menu"> Pesanan</span>
+                            <span class="tooltiptext">Pesanan</span>
                         </a>
                     </li>
                 </ul>
@@ -206,44 +154,8 @@
                     </a>
                 </div>
                 <div class="end">
-                    <a class="iconbtn " id="dropdownnotif" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="badges">
-                        </span>
-                        <span class="material-symbols-outlined">
-                            mail
-                        </span>
 
-                    </a>
-                    <div class="dropdown-menu menudropdown notif" aria-labelledby="dropdownnotif">
-                        <div class="title-container">
-                            <p class="title">Notification</p>
-                            <a class="action"> Clear All</a>
-                        </div>
-                        <hr>
-                        <div class="notif-container" id="notif">
-                            {{--                                                <div class="notif-item unread"> --}}
-                            {{--                                                    <div class="content-container"> --}}
-                            {{--                                                        <p class="title-content">Bagus Want to buy something </p> --}}
-                            {{--                                                        <p class="body-content">You Have new transaction from bagus yanuar, please check! --}}
-                            {{--                                                        </p> --}}
-                            {{--                                                    </div> --}}
-                            {{--                                                    <hr> --}}
 
-                            {{--                                                </div> --}}
-                            {{--                                                <div class="notif-item"> --}}
-
-                            {{--                                                    <div class="content-container"> --}}
-                            {{--                                                        <p class="title-content">Bagus Want to buy something </p> --}}
-                            {{--                                                        <p class="body-content">You Have new transaction from bagus yanuar, please check! --}}
-                            {{--                                                        </p> --}}
-                            {{--                                                    </div> --}}
-                            {{--                                                    <hr> --}}
-
-                            {{--                                                </div> --}}
-                        </div>
-                        <hr>
-                        <div class="footer-container"><a href="/admin/inbox">See All Notifications</a></div>
-                    </div>
                     <div class="dropdown">
                         <div class="profile-button">
                             <div class="content">
@@ -299,24 +211,7 @@
     <script>
         getAjaxResNotif()
 
-        function getAjaxResNotif() {
-            let notif = $('#notif')
-            // notif.empty()
-            $.get('{{ route('admin.dashboard.inbox.notif') }}', function(res, x, s) {
-                if (s.status == 200) {
-                    $.each(res, function(k, v) {
-                        let stat = v.isNew ? 'unread' : ''
-                        notif.append('<div class="notif-item ' + stat + '">' +
-                            '<div class="content-container">' +
-                            ' <p class="title-content">' + v.name + '</p>' +
-                            ' <p class="body-content maxlines">' + v.message + '</p>' +
-                            ' </div>' +
-                            ' <hr>' +
-                            '</div>');
-                    })
-                }
-            })
-        }
+
 
         jQuery.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
             return {

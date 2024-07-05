@@ -55,10 +55,10 @@
         <div class="g-nav-menu">
             <a class="menu {{ Request::is('/') ? 'active' : '' }}" href="/">Home<span
                     class="indicator "></span></a>
-            <a class="menu {{ Request::is('services*') ? 'active' : '' }}" href="/services">Unit PS Kami<span
+            <a class="menu {{ Request::is('services*') ? 'active' : '' }}" href="#unitkami">Unit PS Kami<span
                     class="indicator "></span></a>
 
-            <a class="menu {{ Request::is('contact*') ? 'active' : '' }}" href="/contact">Contact<span
+            <a class="menu {{ Request::is('contact*') ? 'active' : '' }}" href="#footer">Contact<span
                     class="indicator"></span></a>
         </div>
         <div class="g-nav-social">
@@ -132,12 +132,12 @@
 
             <li><a class="dropdown-item menu {{ Request::is('/') ? 'active' : '' }}" href="/">Home<span
                         class="indicator "></span></a></li>
-            <li><a class="dropdown-item menu {{ Request::is('services') ? 'active' : '' }}" href="/services">Unit PS
+            <li><a class="dropdown-item menu {{ Request::is('services') ? 'active' : '' }}" href="#unitkami">Unit PS
                     kami<span class="indicator "></span></a></li>
 
 
-            <li> <a class="dropdown-item menu {{ Request::is('contact') ? 'active' : '' }}"
-                    href="/contact">Contact<span class="indicator"></span></a></li>
+            <li> <a class="dropdown-item menu {{ Request::is('contact') ? 'active' : '' }}" href="#footer">Contact<span
+                        class="indicator"></span></a></li>
             <hr />
             <li style="padding-left: 10px">
                 <div class="g-nav-social">
@@ -208,7 +208,7 @@
     @yield('content')
 
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="row gx-3 ">
             <div class="col-lg-4 col-sm-12 ">
                 <img class="footer-logo" src="{{ asset('images/local/logo.png') }}" />
@@ -317,7 +317,19 @@
 
     <script src="{{ asset('js/wookmark.js') }}"></script>
 
-
+    <script>
+        $(document).ready(function() {
+            $('a[href^="#"]').on('click', function(event) {
+                var target = $(this.getAttribute('href'));
+                if (target.length) {
+                    event.preventDefault();
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top
+                    }, 100);
+                }
+            });
+        });
+    </script>
     @yield('morejs')
 </body>
 

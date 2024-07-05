@@ -2,6 +2,25 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.container-admin .row {
+  display: flex;
+  align-items: flex-start;
+}
+.container-admin .table-container,
+.container-admin .form-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.container-admin .table-container {
+  overflow-x: auto;
+}
+.container-admin .form-label {
+  font-weight: bold;
+}
+
 .admin .sidebar {
   width: 235px;
   box-shadow: 1px 0px 10px #eee;

@@ -235,12 +235,51 @@ a:hover svg {
   margin-bottom: 60px;
 }
 
+.form-container {
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.rekap-container {
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.sewaps .row {
+  display: flex;
+  align-items: center;
+}
+.sewaps img {
+  width: 100%;
+}
+.sewaps .form-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.sewaps form {
+  width: 100%;
+}
+.sewaps .form-label {
+  font-weight: bold;
+}
+.sewaps #rincianHarga {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
 .card-unit {
+  all: unset;
+  cursor: pointer;
   width: 200px;
   max-height: 400px;
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .card-unit img {
   height: 200px;
@@ -248,6 +287,10 @@ a:hover svg {
 }
 .card-unit .content {
   padding: 8px;
+}
+.card-unit:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(62, 157, 209, 0.1333333333);
 }
 
 .g-container-clients {
@@ -273,6 +316,10 @@ a:hover svg {
   margin-left: 20%;
   margin-right: 20%;
 }
+.g-container-clients .alert {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+}
 .g-container-clients .client-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
@@ -287,105 +334,6 @@ a:hover svg {
   list-style-type: none;
   padding: 5px;
   width: 100px;
-}
-
-.g-container-testimoni {
-  width: 100%;
-  padding: 5% 100px;
-  display: flex !important;
-  flex-direction: column;
-  gap: 30px;
-  position: relative;
-}
-.g-container-testimoni .title-container {
-  display: flex;
-  justify-content: space-between;
-}
-.g-container-testimoni .title-container .title {
-  font-size: 3rem;
-  font-weight: bold;
-  line-height: 1.4;
-  background: linear-gradient(0deg, rgb(42, 95, 167) 0%, rgb(71, 186, 229) 63%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
-}
-.g-container-testimoni .title-container .arrow-container {
-  display: flex;
-  gap: 20px;
-}
-.g-container-testimoni .title-container .arrow-container .arrow {
-  background-color: white;
-  padding: 20px;
-  border-radius: 50px;
-  height: 60px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease-in-out;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
-.g-container-testimoni .title-container .arrow-container .arrow:hover {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-.g-container-testimoni .title-container .arrow-container .arrow img {
-  width: 25px;
-  height: 25px;
-}
-.g-container-testimoni .text {
-  font-weight: 1.2rem;
-  color: gray !important;
-  margin-bottom: 60px;
-}
-
-.testimoni-card {
-  background-color: white;
-  box-shadow: 5px 5px 10px -3px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  border-radius: 1rem;
-  margin: 10px;
-  border: 1px solid #eee;
-}
-.testimoni-card .quote {
-  font-size: 4rem;
-  color: #f3b664;
-  font-weight: bold;
-  margin-bottom: 0;
-  line-height: 0.5;
-}
-.testimoni-card .testimoni-text {
-  color: grey;
-  font-weight: bold !important;
-  min-height: 120px;
-  max-height: 150px;
-  overflow: hidden;
-}
-.testimoni-card hr {
-  border: 2px solid grey;
-  border-radius: 50px;
-}
-.testimoni-card .testimoni-profile {
-  display: flex;
-  gap: 20px;
-}
-.testimoni-card .testimoni-profile .testimoni-profpic {
-  width: 50px;
-  height: 50px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 50px;
-}
-.testimoni-card .testimoni-profile .testimoni-name {
-  margin-bottom: 0;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 0;
-}
-.testimoni-card .testimoni-profile .testimoni-position {
-  margin-bottom: 0;
-  font-size: 0.8rem;
-  color: grey;
 }
 
 .btn-pasangiklan {
@@ -404,118 +352,8 @@ a:hover svg {
   background-color: rgb(226, 148, 2);
 }
 
-.title-content {
-  font-size: 3rem;
-  font-weight: bold;
-  line-height: 1;
-  margin-top: 100px;
-  background: linear-gradient(0deg, rgb(42, 95, 167) 0%, rgb(71, 186, 229) 63%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
-}
-
 .space-between-menus {
   margin-bottom: 50px;
-}
-
-.g-services {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -50px;
-}
-.g-services .g-menu {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-.g-services .g-menu .menu {
-  all: unset;
-  padding: 10px 20px;
-  background-color: #fff;
-  border-radius: 5px;
-  color: orange;
-  font-weight: bold;
-  box-shadow: 4px 19px 41px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-.g-services .g-menu .menu.active {
-  background-color: orange;
-  color: white;
-}
-.g-services .g-content {
-  width: 900px;
-  display: flex;
-  box-shadow: 4px 19px 41px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  background-color: white;
-  z-index: 10;
-  position: relative;
-}
-.g-services .g-content img {
-  width: 400px;
-  height: 400px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.g-services .g-content .text {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.g-services .g-content .text hr {
-  width: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-}
-.g-services .g-content .text .title {
-  font-weight: bold;
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 0;
-}
-.g-services .g-content .text .definition {
-  font-weight: 400;
-  text-align: center;
-  color: grey;
-}
-
-.g-portfolio {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 5% 100px;
-}
-.g-portfolio .title {
-  font-size: 3rem;
-  font-weight: bold;
-  line-height: 1.4;
-  background: linear-gradient(0deg, rgb(42, 95, 167) 0%, rgb(71, 186, 229) 63%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
-}
-.g-portfolio .portfolio-wrapper {
-  width: 1200px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.g-portfolio .portfolio-wrapper .portfolio {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  position: relative;
-}
-.g-portfolio .portfolio-wrapper .portfolio img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 
 .oneweek-services {

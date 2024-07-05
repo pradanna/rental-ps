@@ -16,3 +16,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/sewaps', function () {
+    return view('sewaps');
+});
+
+Route::get('/bayar', function () {
+    return view('bayar');
+});
+
+Route::get('/bayar', function () {
+    return view('bayar');
+});
+
+Route::get('/daftar', function () {
+    return view('daftar');
+});
+
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/kategori', function () {
+    return view('admin.kategori');
+});
+
+Route::get('/admin/barang', function () {
+    return view('admin.barang');
+});
