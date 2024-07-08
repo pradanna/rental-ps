@@ -21,6 +21,18 @@ body {
   font-weight: bold;
 }
 
+.detailpesanan .detail-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+.detailpesanan .form-label {
+  font-weight: bold;
+}
+
 .admin .sidebar {
   width: 235px;
   box-shadow: 1px 0px 10px #eee;

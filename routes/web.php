@@ -44,3 +44,11 @@ Route::get('/admin/kategori', function () {
 Route::get('/admin/barang', function () {
     return view('admin.barang');
 });
+
+Route::get('/admin/pesanan', function () {
+    return view('admin.pesanan');
+});
+
+Route::get('/admin/detailpesanan', function () {
+    return view('admin.detailpesanan');
+});

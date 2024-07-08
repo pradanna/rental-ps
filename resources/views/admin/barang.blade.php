@@ -53,7 +53,8 @@
                                 <select class="form-select" id="status" name="status" required>
                                     <option value="" disabled selected>Pilih Status</option>
                                     <option value="ready">Ready</option>
-                                    <option value="rusak">Rusak</option>
+                                    <option value="rusak">Disewa</option>
+                                    <option value="rusak">Sedang dalam Perbaikan</option>
                                 </select>
                             </div>
                             <div class="mb-3">
