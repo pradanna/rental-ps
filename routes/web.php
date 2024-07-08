@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
 });
 
 Route::get('/sewaps', function () {
@@ -52,3 +57,5 @@ Route::get('/admin/pesanan', function () {
 Route::get('/admin/detailpesanan', function () {
     return view('admin.detailpesanan');
 });
+
+Route::get('/admin/buktiterima', [PdfController::class, 'generatePdf']);

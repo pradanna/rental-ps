@@ -36,8 +36,10 @@
                     <p><strong>Disewa Tanggal</strong><br>01-01-2024</p>
                     <p><strong>Durasi Sewa</strong><br>5 Hari</p>
                     <p><strong>Estimasi Tanggal Dikembalikan</strong><br>06-01-2024</p>
-                    <p><strong>Total Biaya Sewa</strong><br>Rp 500,000</p>
-                    <button class="btn btn-warning">Ganti Status</button>
+                    <p><strong>Total Biaya Sewa</strong Statusong><br>Rp 500,000</p>
+                    <button class="btn btn-warning">Unit Siap Diambi</button>
+                    <button class="btn btn-primary">Sedang Disewa</button>
+                    <button class="btn btn-success">Selesai</button>
                 </div>
             </div>
         </div>
@@ -47,37 +49,7 @@
 @section('morejs')
     <script>
         $(document).ready(function() {
-            $('#pesananTable').DataTable();
 
-            $('#pesananForm').on('submit', function(event) {
-                event.preventDefault();
-                const namaKategori = $('#namaKategori').val();
-                const harga = $('#harga').val();
-                const gambar = $('#gambar')[0].files[0];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const imgSrc = e.target.result;
-                    const table = $('#pesananTable').DataTable();
-                    const rowCount = table.rows().count() + 1;
-                    table.row.add([
-                        rowCount,
-                        namaKategori,
-                        harga,
-                        `<img src="${imgSrc}" alt="Gambar ${rowCount}" class="img-thumbnail" style="width: 50px;">`,
-                        '<button class="btn btn-danger btn-sm">Hapus</button>'
-                    ]).draw(false);
-
-                    $('#pesananForm')[0].reset();
-                };
-
-                reader.readAsDataURL(gambar);
-            });
-
-            $('#pesananTable tbody').on('click', 'button', function() {
-                const table = $('#pesananTable').DataTable();
-                table.row($(this).parents('tr')).remove().draw();
-            });
         });
     </script>
 @endsection

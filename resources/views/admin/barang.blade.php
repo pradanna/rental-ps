@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="table-container p-4">
-                        <table id="barangTable" class="display" style="width:100%">
+                        <table id="unitTable" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-container p-4">
-                        <form id="barangForm">
+                        <form id="unitForm">
                             <div class="mb-3">
                                 <label for="kategori" class="form-label">Kategori Playstation</label>
                                 <select class="form-select" id="kategori" name="kategori" required>
@@ -61,7 +61,7 @@
                                 <label for="keterangan" class="form-label">Keterangan</label>
                                 <textarea class="form-control" id="keterangan" name="keterangan" rows="3" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah Barang</button>
+                            <button type="submit" class="btn btn-primary">Tambah Unit</button>
                         </form>
                     </div>
                 </div>
@@ -73,9 +73,9 @@
 @section('morejs')
     <script>
         $(document).ready(function() {
-            $('#barangTable').DataTable();
+            $('#unitTable').DataTable();
 
-            $('#barangForm').on('submit', function(event) {
+            $('#unitForm').on('submit', function(event) {
                 event.preventDefault();
                 const namaKategori = $('#namaKategori').val();
                 const harga = $('#harga').val();
@@ -84,7 +84,7 @@
 
                 reader.onload = function(e) {
                     const imgSrc = e.target.result;
-                    const table = $('#barangTable').DataTable();
+                    const table = $('#unitTable').DataTable();
                     const rowCount = table.rows().count() + 1;
                     table.row.add([
                         rowCount,
@@ -94,14 +94,14 @@
                         '<button class="btn btn-danger btn-sm">Hapus</button>'
                     ]).draw(false);
 
-                    $('#barangForm')[0].reset();
+                    $('#unitForm')[0].reset();
                 };
 
                 reader.readAsDataURL(gambar);
             });
 
-            $('#barangTable tbody').on('click', 'button', function() {
-                const table = $('#barangTable').DataTable();
+            $('#unitTable tbody').on('click', 'button', function() {
+                const table = $('#unitTable').DataTable();
                 table.row($(this).parents('tr')).remove().draw();
             });
         });

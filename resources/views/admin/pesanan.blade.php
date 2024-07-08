@@ -28,7 +28,7 @@
                                 Unit Siap Diambil || Sedang Disewa || Selesai</td>
                             <td>RP 200.000</td>
 
-                            <td><button class="btn btn-primary btn-sm">Detail</button></td>
+                            <td><a class="btn btn-primary btn-sm" href="/admin/detailpesanan">Detail</a></td>
                         </tr>
 
                     </tbody>

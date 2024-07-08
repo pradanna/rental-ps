@@ -89,8 +89,8 @@
                             <span class="material-symbols-outlined">
                                 package
                             </span>
-                            <span class="text-menu"> Data Barang</span>
-                            <span class="tooltiptext">Data Barang</span>
+                            <span class="text-menu"> Data Unit</span>
+                            <span class="tooltiptext">Data Unit</span>
                         </a>
                     </li>
                     <li>
