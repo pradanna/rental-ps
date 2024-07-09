@@ -61,7 +61,34 @@
         <p><strong>Total Pembayaran:</strong> {{ $total_pembayaran }}</p>
 
         <div class="footer">
-            <p>Dengan ini menyatakan bahwa menyewa dan ...</p>
+            <p style=" text-align: justify;">Syarat dan Ketentuan: <br>
+
+                1. Pembayaran: Penyewa wajib melakukan pembayaran penuh sesuai dengan total biaya sewa sebelum unit
+                diserahkan. <br>
+
+                2. Penggunaan: Penyewa setuju untuk menggunakan unit PlayStation dengan hati-hati dan hanya untuk
+                keperluan
+                pribadi. <br>
+
+                3. Kerusakan dan Kehilangan: Penyewa bertanggung jawab atas segala kerusakan atau kehilangan unit selama
+                masa sewa. Biaya perbaikan atau penggantian unit akan ditanggung oleh penyewa. <br>
+
+                Pengembalian: Penyewa harus mengembalikan unit PlayStation tepat waktu sesuai dengan durasi sewa yang
+                disepakati. Keterlambatan pengembalian akan dikenakan biaya tambahan sebesar [biaya keterlambatan] per
+                hari. <br>
+
+                Pembatalan: Pembatalan sewa oleh penyewa harus diberitahukan minimal [jumlah hari] sebelum tanggal mulai
+                sewa. Biaya pembatalan sebesar [biaya pembatalan] akan dikenakan. <br>
+
+                Perpanjangan Sewa: Jika penyewa ingin memperpanjang masa sewa, penyewa harus menghubungi pihak rental
+                minimal [jumlah hari] sebelum tanggal pengembalian. Perpanjangan sewa akan dikenakan biaya tambahan
+                sesuai dengan biaya sewa per hari.
+                <br>
+                Pernyataan:
+            </p>
+            <p>Dengan ini, saya, [Nama Penyewa], menyatakan bahwa saya telah membaca, memahami, dan setuju dengan syarat
+                dan ketentuan yang tercantum dalam perjanjian ini. Saya berjanji untuk mematuhi semua ketentuan yang
+                berlaku dan bertanggung jawab penuh atas unit PlayStation yang saya sewa.</p>
             <div class="signature">
                 <p>______________________</p>
                 <p>Tanda Tangan Customer</p>

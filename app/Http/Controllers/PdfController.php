@@ -10,9 +10,10 @@ class PdfController extends Controller
 {
     public function generatePdf()
     {
+        $id = 1;
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML('<h1>Test</h1>');
+        $pdf->loadHTML($this->buktiterima($id))->setPaper('A4', 'potrait')->save('Laporan.pdf');
         return $pdf->stream();
     }
 
