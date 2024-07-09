@@ -28,7 +28,9 @@
                                 Unit Siap Diambil || Sedang Disewa || Selesai</td>
                             <td>RP 200.000</td>
 
-                            <td><a class="btn btn-primary btn-sm" href="/admin/detailpesanan">Detail</a></td>
+                            <td><a class="btn btn-primary btn-sm" href="/admin/detailpesanan">Detail</a>
+                                <a class="btn btn-warning btn-sm" href="/admin/buktiterima">Cetak Bukti Terima</a>
+                            </td>
                         </tr>
 
                     </tbody>

@@ -10,6 +10,32 @@
 
 @section('content')
     <div class="sewaps mt-5">
+        <div class=" p-4 mb-5  mx-5" style="background-color: white">
+            <table id="unitTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Kategori PS</th>
+                        <th>Nomor Seri</th>
+                        <th>Status</th>
+                        <th>Keterangan</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PS 2</td>
+                        <td>010390129</td>
+                        <td>ready, disewa, rusak</td>
+                        <td>PS Harddisk 70GB, Kondisi baik</td>
+                        <td><button class="btn btn-primary btn-sm">Pilhh</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg"
@@ -17,6 +43,15 @@
             </div>
             <div class="col-md-4">
                 <div class="form-container p-4">
+                    <div class="mb-3">
+                        <label for="nomorseri" class="form-label">Nomor Seri</label>
+                        <input type="text" class="form-control" readonly id="nomorseri" name="nomorseri" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="keterangan" class="form-label">Keterangan</label>
+                        <input type="text" class="form-control" readonly id="keterangan" name="keterangan" required>
+                    </div>
+
                     <h2 class="mb-2">Tolong Isi data dengan benar</h2>
                     <form id="sewaForm">
                         <div class="mb-3">

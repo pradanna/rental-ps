@@ -53,7 +53,7 @@
             <p id="unitkami" class="title">Unit yang Tersedia</p>
         </div>
         <div class="d-flex gap-4">
-            <a class="card-unit">
+            <a class="card-unit" href="/sewaps">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
                 <div class="content">
@@ -62,17 +62,7 @@
                 </div>
             </a>
 
-            <a class="card-unit">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
-                <div class="content">
-                    <p class="mb-0 fw-bold">PS 2</p>
-                    <p class="mb-0">Tersedia: 23 Unit</p>
-                </div>
-            </a>
-
-
-            <a class="card-unit">
+            <a class="card-unit" href="/sewaps">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
                 <div class="content">
@@ -82,7 +72,7 @@
             </a>
 
 
-            <a class="card-unit">
+            <a class="card-unit" href="/sewaps">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
                 <div class="content">
@@ -92,6 +82,14 @@
             </a>
 
 
+            <a class="card-unit" href="/sewaps">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
+                <div class="content">
+                    <p class="mb-0 fw-bold">PS 2</p>
+                    <p class="mb-0">Tersedia: 23 Unit</p>
+                </div>
+            </a>
         </div>
     </div>
 
