@@ -26,9 +26,7 @@ Route::get('/sewaps', function () {
     return view('sewaps');
 });
 
-Route::get('/bayar', function () {
-    return view('bayar');
-});
+
 
 Route::get('/bayar', function () {
     return view('bayar');

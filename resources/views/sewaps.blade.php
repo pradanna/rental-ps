@@ -79,7 +79,8 @@
                             <p>Sewa ps 2 perhari 100.000 x <span id="hari"></span> hari</p>
                             <p id="rincianHarga">Rp 0</p>
                         </div>
-                        <button type="submit" class="btn btn-primary">Sewa Sekarang</button>
+                        <a href="/bayar" style="width: 250px" class="d-flex btn btn-primary p-4">Sewa Sekarang</a>
+
                     </form>
                 </div>
             </div>
