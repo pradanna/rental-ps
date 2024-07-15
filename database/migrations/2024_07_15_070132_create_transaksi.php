@@ -11,16 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('nama');
-            $table->string('no_hp');
+            $table->string('no_peminjaman')->unique();
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_kembali');
+            $table->integer('sub_total')->default(0);
+            $table->integer('dp')->default(0);
+            $table->integer('denda')->default(0);
+            $table->integer('total')->default(0);
+            $table->boolean('lunas')->default(false);
             $table->string('alamat');
-            $table->text('gambar_ktp')->nullable();
+            $table->smallInteger('status')->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('transaksi');
     }
 };
