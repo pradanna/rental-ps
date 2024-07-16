@@ -14,18 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [\App\Http\Controllers\Customer\HomeController::class, 'index'])->name('customer.home');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::match(['post', 'get'],'/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 
 Route::get('/sewaps', function () {
     return view('sewaps');
 });
-
 
 
 Route::get('/bayar', function () {
@@ -36,24 +31,28 @@ Route::get('/daftar', function () {
     return view('daftar');
 });
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 });
 
-Route::get('/admin/kategori', function () {
-    return view('admin.kategori');
-});
-
-Route::get('/admin/barang', function () {
-    return view('admin.barang');
-});
-
-Route::get('/admin/pesanan', function () {
-    return view('admin.pesanan');
-});
-
-Route::get('/admin/detailpesanan', function () {
-    return view('admin.detailpesanan');
-});
-
-Route::get('/admin/buktiterima', [PdfController::class, 'generatePdf']);
+//Route::get('/admin', function () {
+//    return view('admin.dashboard');
+//});
+//
+//Route::get('/admin/kategori', function () {
+//    return view('admin.kategori');
+//});
+//
+//Route::get('/admin/barang', function () {
+//    return view('admin.barang');
+//});
+//
+//Route::get('/admin/pesanan', function () {
+//    return view('admin.pesanan');
+//});
+//
+//Route::get('/admin/detailpesanan', function () {
+//    return view('admin.detailpesanan');
+//});
+//
+//Route::get('/admin/buktiterima', [PdfController::class, 'generatePdf']);
