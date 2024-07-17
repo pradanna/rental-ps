@@ -1,6 +1,23 @@
 @extends('admin.base')
 
 @section('content')
+    @if (\Illuminate\Support\Facades\Session::has('failed'))
+        <script>
+            Swal.fire("Ooops", '{{ \Illuminate\Support\Facades\Session::get('failed') }}', "error")
+        </script>
+    @endif
+    @if (\Illuminate\Support\Facades\Session::has('success'))
+        <script>
+            Swal.fire({
+                title: 'Success',
+                text: '{{ \Illuminate\Support\Facades\Session::get('success') }}',
+                icon: 'success',
+                timer: 700
+            }).then(() => {
+                window.location.reload();
+            })
+        </script>
+    @endif
     <div class="kategori">
         <div class="container-admin pt-5 px-3">
             <div class="row">
@@ -8,56 +25,55 @@
                     <div class="table-container p-4">
                         <table id="barangTable" class="table table-striped" style="width:100%">
                             <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Harga /hari</th>
-                                    <th>Gambar</th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Nama Kategori</th>
+                                <th>Gambar</th>
+                                <th>Action</th>
+                            </tr>
                             </thead>
                             <tbody>
+                            @foreach($data as $datum)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Elektronik</td>
-                                    <td>500000</td>
-                                    <td><img src="path/to/image1.jpg" alt="Gambar 1" class="img-thumbnail"
-                                            style="width: 50px;"></td>
-                                    <td><button class="btn btn-danger btn-sm">Hapus</button></td>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $datum->nama }}</td>
+                                    <td>
+                                        <img src="{{ $datum->gambar }}" alt="Gambar 1" class="img-thumbnail"
+                                             style="width: 50px;">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm btn-edit" data-id="{{ $datum->id }}"
+                                                data-nama="{{ $datum->nama }}">
+                                            <span class="material-symbols-outlined" style="font-size: 0.8em">
+                                                edit
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <span class="material-symbols-outlined" style="font-size: 0.8em">
+                                                delete
+                                            </span>
+                                        </button>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Furniture</td>
-                                    <td>200000</td>
-                                    <td><img src="path/to/image2.jpg" alt="Gambar 2" class="img-thumbnail"
-                                            style="width: 50px;"></td>
-                                    <td><button class="btn btn-danger btn-sm">Hapus</button></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Pakaian</td>
-                                    <td>100000</td>
-                                    <td><img src="path/to/image3.jpg" alt="Gambar 3" class="img-thumbnail"
-                                            style="width: 50px;"></td>
-                                    <td><button class="btn btn-danger btn-sm">Hapus</button></td>
-                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-container p-4">
-                        <form id="barangForm" method="post">
+                        <form id="barangForm" method="post" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" value="" id="category_id">
                             <div class="mb-3">
                                 <label for="namaKategori" class="form-label">Nama Kategori</label>
-                                <input type="text" class="form-control" id="namaKategori" name="namaKategori" required>
+                                <input type="text" class="form-control" id="namaKategori" name="name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="gambar" class="form-label">Gambar</label>
-                                <input type="file" class="form-control" id="gambar" name="gambar" required>
+                                <label for="file" class="form-label">Gambar</label>
+                                <input type="file" class="form-control" id="file" name="file" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah Barang</button>
+                            <button type="button" class="btn btn-primary" id="btn-add">Tambah Barang</button>
                         </form>
                     </div>
                 </div>
@@ -67,42 +83,32 @@
 @endsection
 
 @section('morejs')
+    <script src="{{ asset('/js/helper.js') }}"></script>
     <script>
         var path = '/{{ request()->path() }}';
         var table;
 
-        $(document).ready(function() {
+        function eventSave() {
+            $('#btn-add').on('click', function () {
+                AlertConfirm('Konfirmasi!', 'Apakah anda yakin ingin menyimpan data?', function () {
+                    $('#barangForm').submit();
+                })
+            });
+        }
+
+        function eventEdit() {
+            $('.btn-edit').on('click', function () {
+                let id = this.dataset.id;
+                let nama = this.dataset.nama;
+                $('#category_id').val(id);
+                $('#namaKategori').val(nama);
+            });
+        }
+
+        $(document).ready(function () {
             $('#barangTable').DataTable();
-
-            $('#barangForm').on('submit', function(event) {
-                event.preventDefault();
-                const namaKategori = $('#namaKategori').val();
-                const harga = $('#harga').val();
-                const gambar = $('#gambar')[0].files[0];
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    const imgSrc = e.target.result;
-                    const table = $('#barangTable').DataTable();
-                    const rowCount = table.rows().count() + 1;
-                    table.row.add([
-                        rowCount,
-                        namaKategori,
-                        harga,
-                        `<img src="${imgSrc}" alt="Gambar ${rowCount}" class="img-thumbnail" style="width: 50px;">`,
-                        '<button class="btn btn-danger btn-sm">Hapus</button>'
-                    ]).draw(false);
-
-                    $('#barangForm')[0].reset();
-                };
-
-                reader.readAsDataURL(gambar);
-            });
-
-            $('#barangTable tbody').on('click', 'button', function() {
-                const table = $('#barangTable').DataTable();
-                table.row($(this).parents('tr')).remove().draw();
-            });
+            eventEdit();
+            eventSave();
         });
     </script>
 @endsection

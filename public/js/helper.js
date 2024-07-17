@@ -39,6 +39,22 @@ function blockLoading(state) {
         $('#overlay-loading').css('display', 'none')
     }
 }
+
+function AlertConfirm(title = 'Apakah Anda Yakin?', text = 'Apa anda yakin melanjutkan proses', fn) {
+    Swal.fire({
+        title: title,
+        text: text,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya'
+    }).then((result) => {
+        if (result.value) {
+            fn();
+        }
+    });
+}
 // var myToastEl = document.getElementById('liveToast');
 // var myToast = new bootstrap.Toast(myToastEl, {
 //     autohide: true,

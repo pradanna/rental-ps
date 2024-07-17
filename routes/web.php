@@ -35,7 +35,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::group(['prefix' => 'kategori'], function (){
-        Route::get('/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
+        Route::match(['post', 'get'],'/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
+    });
+
+    Route::group(['prefix' => 'barang'], function (){
+        Route::match(['post', 'get'],'/', [\App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.barang');
     });
 });
 

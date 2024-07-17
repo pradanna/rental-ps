@@ -40,11 +40,12 @@
     {{-- SWEEET ALERT --}}
     {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css" --}}
     {{--          integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous"> --}}
-    <script src="{{ asset('js/swal.js') }}"></script>
+{{--    <script src="{{ asset('js/swal.js') }}"></script>--}}
     {{--    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script> --}}
     <link href="{{ asset('js/dropify/css/dropify.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('/css/sweetalert2.css') }}" rel="stylesheet">
+    <script src="{{ asset('/js/sweetalert2.min.js')}}"></script>
 
     @yield('morecss')
 
@@ -209,7 +210,7 @@
     <script src="{{ asset('js/dropify/js/dropify.js') }}"></script>
 
     <script>
-        getAjaxResNotif()
+        // getAjaxResNotif()
 
 
 

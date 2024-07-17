@@ -18,13 +18,16 @@ class CategoryController extends CustomController
 
     public function index()
     {
-        if ($this->request->ajax()) {
-            $data = Kategori::with([])
-                ->orderBy('created_at', 'DESC')
-                ->get();
-            return $this->basicDataTables($data);
+        if ($this->request->method() === 'POST') {
+            return $this->store();
         }
-        return view('admin.kategori');
+
+        $data = Kategori::with([])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        return view('admin.kategori')->with([
+            'data' => $data
+        ]);
     }
 
     private $rule = [
