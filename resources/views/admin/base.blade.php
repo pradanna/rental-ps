@@ -75,7 +75,7 @@
 
                     <li>
                         <a class="menu tooltip {{ Request::is('admin/kategori') ? 'active' : '' }}"
-                            href="/admin/kategori"><span class="material-symbols-outlined">
+                            href="{{ route('admin.category') }}"><span class="material-symbols-outlined">
                                 category
                             </span>
                             <span class="text-menu"> Kategori</span>

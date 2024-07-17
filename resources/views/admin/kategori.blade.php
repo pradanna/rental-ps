@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="table-container p-4">
-                        <table id="barangTable" class="display" style="width:100%">
+                        <table id="barangTable" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -47,14 +47,11 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-container p-4">
-                        <form id="barangForm">
+                        <form id="barangForm" method="post">
+                            @csrf
                             <div class="mb-3">
                                 <label for="namaKategori" class="form-label">Nama Kategori</label>
                                 <input type="text" class="form-control" id="namaKategori" name="namaKategori" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="harga" class="form-label">Harga /hari</label>
-                                <input type="number" class="form-control" id="harga" name="harga" required>
                             </div>
                             <div class="mb-3">
                                 <label for="gambar" class="form-label">Gambar</label>
@@ -71,6 +68,9 @@
 
 @section('morejs')
     <script>
+        var path = '/{{ request()->path() }}';
+        var table;
+
         $(document).ready(function() {
             $('#barangTable').DataTable();
 

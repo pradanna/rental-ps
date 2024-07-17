@@ -33,6 +33,10 @@ Route::get('/daftar', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+
+    Route::group(['prefix' => 'kategori'], function (){
+        Route::get('/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
+    });
 });
 
 //Route::get('/admin', function () {
