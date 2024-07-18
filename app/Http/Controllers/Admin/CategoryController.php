@@ -25,7 +25,7 @@ class CategoryController extends CustomController
         $data = Kategori::with([])
             ->orderBy('created_at', 'DESC')
             ->get();
-        return view('admin.kategori')->with([
+        return view('admin.kategori.index')->with([
             'data' => $data
         ]);
     }
