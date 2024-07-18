@@ -32,7 +32,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.category') }}">Kategori</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.barang') }}">Unit</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tambah</li>
                 </ol>
             </nav>
@@ -44,7 +44,7 @@
                         <div class="table-container p-4">
                             <div class="content-header mb-3">
                                 <p class="header-title">Data Unit</p>
-                                <a href="{{ route('admin.category.add') }}" class="btn-add">
+                                <a href="{{ route('admin.barang.add') }}" class="btn-add">
                                     <i class='bx bx-plus'></i>
                                     <span>Tambah Unit</span>
                                 </a>
@@ -105,6 +105,9 @@
                     {
                         data: 'harga',
                         className: 'middle-header',
+                        render: function (data) {
+                            return data.toLocaleString('id-ID');
+                        }
                     },
                     {
                         data: 'deskripsi',

@@ -35,13 +35,6 @@
     {{-- ICON --}}
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
-
-    {{-- SWEEET ALERT --}}
-    {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.4/dist/sweetalert2.min.css" --}}
-    {{--          integrity="sha256-h2Gkn+H33lnKlQTNntQyLXMWq7/9XI2rlPCsLsVcUBs=" crossorigin="anonymous"> --}}
-{{--    <script src="{{ asset('js/swal.js') }}"></script>--}}
-    {{--    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script> --}}
     <link href="{{ asset('js/dropify/css/dropify.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/sweetalert2.css') }}" rel="stylesheet">
@@ -75,8 +68,8 @@
 
 
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/kategori') ? 'active' : '' }}"
-                            href="#"><span class="material-symbols-outlined">
+                        <a class="menu tooltip {{ Request::is('admin/kategori*') ? 'active' : '' }}"
+                            href="{{ route('admin.category') }}"><span class="material-symbols-outlined">
                                 category
                             </span>
                             <span class="text-menu"> Kategori</span>
@@ -84,9 +77,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/barang') ? 'active' : '' }}" href="/admin/barang">
-
-
+                        <a class="menu tooltip {{ Request::is('admin/barang*') ? 'active' : '' }}" href="{{ route('admin.barang') }}">
                             <span class="material-symbols-outlined">
                                 package
                             </span>
@@ -167,9 +158,9 @@
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <p class="user">User</p>
-                                    <p class="email">user@gmail.com</p>
+                                    <p class="email">{{ auth()->user()->username }}</p>
                                     <hr>
-                                    <a class="logout" href="/logout">Logout</a>
+                                    <a class="logout" href="{{ route('logout') }}">Logout</a>
 
                                 </div>
                             </div>

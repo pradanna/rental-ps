@@ -15,4 +15,14 @@ class Kategori extends Model
         'nama',
         'gambar'
     ];
+
+    public function product()
+    {
+        return $this->hasMany(Product::class, 'kategori_id');
+    }
+
+    public function getCountProductAttribute()
+    {
+        return $this->product()->count();
+    }
 }

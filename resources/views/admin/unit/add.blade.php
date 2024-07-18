@@ -32,7 +32,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.category') }}">Kategori</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.barang') }}">Unit</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tambah</li>
                 </ol>
             </nav>
@@ -41,16 +41,28 @@
             <div class="form-container p-4">
                 <form id="barangForm" method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" value="" id="category_id">
                     <div class="mb-3">
-                        <label for="namaKategori" class="form-label">Nama Kategori</label>
-                        <input type="text" class="form-control" id="namaKategori" name="name" required>
+                        <label for="kategori" class="form-label">Kategori Playstation</label>
+                        <select class="form-select" id="kategori" name="kategori" required>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="file" class="form-label">Gambar</label>
-                        <input type="file" class="form-control" id="file" name="file" required>
+                        <label for="code" class="form-label">Kode Unit</label>
+                        <input type="text" class="form-control" id="code" name="code" required>
                     </div>
-                    <button type="button" class="btn btn-primary" id="btn-add">Tambah Barang</button>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Harga</label>
+                        <input type="number" class="form-control" id="price" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea rows="6" class="form-control" id="description" name="description"></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="btn-add">Tambah Unit</button>
                 </form>
             </div>
         </div>

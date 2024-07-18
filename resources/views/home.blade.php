@@ -2,50 +2,50 @@
 
 @section('morecss')
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"
-        integrity="sha256-FZsW7H2V5X9TGinSjjwYJ419Xka27I8XPDmWryGlWtw=" crossorigin="anonymous"></script>
+            integrity="sha256-FZsW7H2V5X9TGinSjjwYJ419Xka27I8XPDmWryGlWtw=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
-        integrity="sha256-5uKiXEwbaQh9cgd2/5Vp6WmMnsUr3VZZw0a8rKnOKNU=" crossorigin="anonymous">
+          integrity="sha256-5uKiXEwbaQh9cgd2/5Vp6WmMnsUr3VZZw0a8rKnOKNU=" crossorigin="anonymous">
 @endsection
 
 @section('content')
     <div class="g-hero">
-        <img src="{{ asset('images/local/hero-image.webp') }}" />
+        <img src="{{ asset('images/local/hero-image.webp') }}"/>
     </div>
 
-    <div class="g-info">
-        <div class="info container ">
-            <span class="score tahun-pengalaman">0</span>
-            <div class="d-flex flex-column ">
-                <span class="definition">Tahun </span>
-                <span class="definition">Pengalaman </span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="info container ">
-            <span class="score  titikstrategis">0</span>
-            <div class="d-flex flex-column ">
-                <span class="definition">Unit </span>
-                <span class="definition">Tersewa </span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="info container ">
-            <span class="score happycustomer">0</span>
-            <div class="d-flex flex-column ">
-                <span class="definition">Happy</span>
-                <span class="definition">Customer </span>
-            </div>
-        </div>
-        <div class="line"></div>
-        <div class="info container ">
-            <span class="score overalrating">0</span>
-            <div class="d-flex flex-column ">
-                <span class="definition">Overal</span>
-                <span class="definition">Rating </span>
-            </div>
-        </div>
-    </div>
+{{--    <div class="g-info">--}}
+{{--        <div class="info container ">--}}
+{{--            <span class="score tahun-pengalaman">0</span>--}}
+{{--            <div class="d-flex flex-column ">--}}
+{{--                <span class="definition">Tahun </span>--}}
+{{--                <span class="definition">Pengalaman </span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="line"></div>--}}
+{{--        <div class="info container ">--}}
+{{--            <span class="score  titikstrategis">0</span>--}}
+{{--            <div class="d-flex flex-column ">--}}
+{{--                <span class="definition">Unit </span>--}}
+{{--                <span class="definition">Tersewa </span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="line"></div>--}}
+{{--        <div class="info container ">--}}
+{{--            <span class="score happycustomer">0</span>--}}
+{{--            <div class="d-flex flex-column ">--}}
+{{--                <span class="definition">Happy</span>--}}
+{{--                <span class="definition">Customer </span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="line"></div>--}}
+{{--        <div class="info container ">--}}
+{{--            <span class="score overalrating">0</span>--}}
+{{--            <div class="d-flex flex-column ">--}}
+{{--                <span class="definition">Overal</span>--}}
+{{--                <span class="definition">Rating </span>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
     <div class="mb-5"></div>
     <div class="g-container-left">
@@ -53,43 +53,16 @@
             <p id="unitkami" class="title">Unit yang Tersedia</p>
         </div>
         <div class="d-flex gap-4">
-            <a class="card-unit" href="/sewaps">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
-                <div class="content">
-                    <p class="mb-0 fw-bold">PS 2</p>
-                    <p class="mb-0">Tersedia: 23 Unit</p>
-                </div>
-            </a>
-
-            <a class="card-unit" href="/sewaps">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
-                <div class="content">
-                    <p class="mb-0 fw-bold">PS 2</p>
-                    <p class="mb-0">Tersedia: 23 Unit</p>
-                </div>
-            </a>
-
-
-            <a class="card-unit" href="/sewaps">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
-                <div class="content">
-                    <p class="mb-0 fw-bold">PS 2</p>
-                    <p class="mb-0">Tersedia: 23 Unit</p>
-                </div>
-            </a>
-
-
-            <a class="card-unit" href="/sewaps">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/PS2-Versions.jpg/1200px-PS2-Versions.jpg" />
-                <div class="content">
-                    <p class="mb-0 fw-bold">PS 2</p>
-                    <p class="mb-0">Tersedia: 23 Unit</p>
-                </div>
-            </a>
+            @foreach($categories as $category)
+                <a class="card-unit" href="/sewaps">
+                    <img
+                        src="{{ asset($category->gambar) }}"/>
+                    <div class="content">
+                        <p class="mb-0 fw-bold">{{ $category->nama }}</p>
+                        <p class="mb-0">Tersedia: {{ $category->count_product }} Unit</p>
+                    </div>
+                </a>
+            @endforeach
         </div>
     </div>
 
@@ -109,10 +82,11 @@
         <img src={{ asset('images/local/calendar.png') }} />
         <div>
             <p class="title">Sewa Lebih Lama Lebih Untung</p>
-            <p class="text">Dapatkan diskon lebih banyak dengan menyewa Playstation kami dalam jangka waktu yang lama.</p>
+            <p class="text">Dapatkan diskon lebih banyak dengan menyewa Playstation kami dalam jangka waktu yang
+                lama.</p>
             <a class="btn-pasangiklan"
-                href="https://api.whatsapp.com/send?phone={{ preg_replace('/^0/', '62', '01578978454') }}&text=Halo%2C%20saya%20mau%20konsultasi%20periklanan%20billboard"
-                target="_blank">
+               href="https://api.whatsapp.com/send?phone={{ preg_replace('/^0/', '62', '01578978454') }}&text=Halo%2C%20saya%20mau%20konsultasi%20periklanan%20billboard"
+               target="_blank">
                 Sewa Sekarang
             </a>
         </div>
@@ -154,7 +128,7 @@
         splide.mount();
     </script>
     <script type="text/javascript">
-        window.onload = function() {
+        window.onload = function () {
             var itemWidth = window.innerWidth < 820 ? 110 : 210;
 
             var wookmark1 = new Wookmark("#wookmark1", {
@@ -164,7 +138,7 @@
         };
 
         // Opsional: Mendengarkan perubahan ukuran jendela untuk mengatur ulang lebar item
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             var newWidth = window.innerWidth < 820 ? 110 : 210;
             if (newWidth !== itemWidth) {
                 itemWidth = newWidth;
@@ -181,7 +155,7 @@
             origin: 'bottom',
             delay: 300,
         };
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             ScrollReveal().reveal('.g-hero', slideUp);
             ScrollReveal().reveal('.g-info', slideUp);
             ScrollReveal().reveal('.g-container-left', slideUp);
@@ -250,7 +224,7 @@
             });
         });
 
-        document.addEventListener("scroll", function() {
+        document.addEventListener("scroll", function () {
             var scrolledHeight = window.pageYOffset;
             var parallaxElement = document.querySelector('.oneweek-services'),
                 limit = parallaxElement.offsetTop + parallaxElement.offsetHeight;

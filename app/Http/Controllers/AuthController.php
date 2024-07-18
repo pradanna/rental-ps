@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Helper\CustomController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends CustomController
@@ -46,5 +47,11 @@ class AuthController extends CustomController
             return redirect()->back()->with('failed', 'Periksa Kembali Username dan Password Anda');
         }
         return view('auth.login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('customer.home');
     }
 }

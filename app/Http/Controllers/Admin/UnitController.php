@@ -38,7 +38,11 @@ class UnitController extends CustomController
         if ($this->request->method() === 'POST') {
             return $this->store();
         }
-        return view('admin.unit.add');
+        $categories = Kategori::with([])
+            ->get();
+        return view('admin.unit.add')->with([
+            'categories' => $categories
+        ]);
     }
 
     public function edit($id)
@@ -48,13 +52,18 @@ class UnitController extends CustomController
         if ($this->request->method() === 'POST') {
             return $this->patch($data);
         }
-        return view('admin.unit.edit')->with(['data' => $data]);
+        $categories = Kategori::with([])
+            ->get();
+        return view('admin.unit.edit')->with([
+            'data' => $data,
+            'categories' => $categories
+        ]);
     }
 
     public function delete($id)
     {
         try {
-            Kategori::destroy($id);
+            Product::destroy($id);
             return $this->jsonSuccessResponse('Berhasil menghapus data...');
         } catch (\Exception $e) {
             return $this->jsonErrorResponse();
@@ -62,11 +71,11 @@ class UnitController extends CustomController
     }
 
     private $rule = [
-        'name' => 'required',
+        'code' => 'required',
     ];
 
     private $message = [
-        'name.required' => 'kolom nama wajib diisi',
+        'code.required' => 'kolom kode unit wajib diisi',
     ];
 
 
@@ -79,14 +88,14 @@ class UnitController extends CustomController
             }
             $data_request = [
                 'kategori_id' => $this->postField('kategori'),
-                'nama' => $this->postField('name'),
-                'harga' => 0,
+                'nama' => $this->postField('code'),
+                'harga' => $this->postField('price'),
                 'qty' => 0,
-                'deskripsi' => $this->postField('deskripsi'),
+                'deskripsi' => $this->postField('description'),
                 'gambar' => null,
             ];
             Product::create($data_request);
-            return redirect()->back()->with('success', 'Berhasil menyimpan data product...');
+            return redirect()->back()->with('success', 'Berhasil menyimpan data unit...');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('failed', 'terjadi kesalahan server...');
         }
@@ -104,21 +113,16 @@ class UnitController extends CustomController
                 return redirect()->back()->with('failed', 'Harap mengisi kolom dengan benar...')->withErrors($validator)->withInput();
             }
             $data_request = [
-                'nama' => $this->postField('name'),
+                'kategori_id' => $this->postField('kategori'),
+                'nama' => $this->postField('code'),
+                'harga' => $this->postField('price'),
+                'qty' => 0,
+                'deskripsi' => $this->postField('description'),
+                'gambar' => null,
             ];
 
-
-            if ($this->request->hasFile('file')) {
-                $file = $this->request->file('file');
-                $extension = $file->getClientOriginalExtension();
-                $document = Uuid::uuid4()->toString() . '.' . $extension;
-                $storage_path = public_path('assets/category');
-                $documentName = $storage_path . '/' . $document;
-                $data_request['gambar'] = '/assets/category/' . $document;
-                $file->move($storage_path, $documentName);
-            }
             $data->update($data_request);
-            return redirect()->back()->with('success', 'Berhasil merubah data kategori...');
+            return redirect()->back()->with('success', 'Berhasil merubah data unit...');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('failed', 'terjadi kesalahan server...');
         }
