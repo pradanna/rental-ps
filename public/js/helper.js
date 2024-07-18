@@ -55,6 +55,23 @@ function AlertConfirm(title = 'Apakah Anda Yakin?', text = 'Apa anda yakin melan
         }
     });
 }
+
+async function BaseDeleteHandler(url, id) {
+    try {
+        await $.post(url);
+        Swal.fire({
+            title: 'Success',
+            text: 'Berhasil menghapus data...',
+            icon: 'success',
+            timer: 700
+        }).then(() => {
+            window.location.reload();
+        })
+    }catch (e) {
+        let error_message = JSON.parse(e.responseText);
+        ErrorAlert('Error', error_message.message);
+    }
+}
 // var myToastEl = document.getElementById('liveToast');
 // var myToast = new bootstrap.Toast(myToastEl, {
 //     autohide: true,

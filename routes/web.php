@@ -35,7 +35,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::group(['prefix' => 'kategori'], function (){
-        Route::match(['post', 'get'],'/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
+        Route::get('/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
+        Route::match(['post', 'get'],'/add', [\App\Http\Controllers\Admin\CategoryController::class, 'add'])->name('admin.category.add');
+        Route::match(['post', 'get'],'/{id}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::post('/{id}/delete', [\App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('admin.category.delete');
     });
 
     Route::group(['prefix' => 'barang'], function (){

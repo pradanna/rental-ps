@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>Admin || Genos Template</title>
 
     <!-- Fonts -->
@@ -76,7 +76,7 @@
 
                     <li>
                         <a class="menu tooltip {{ Request::is('admin/kategori') ? 'active' : '' }}"
-                            href="{{ route('admin.category') }}"><span class="material-symbols-outlined">
+                            href="#"><span class="material-symbols-outlined">
                                 category
                             </span>
                             <span class="text-menu"> Kategori</span>

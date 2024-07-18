@@ -26,8 +26,8 @@
     <div class="p-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
             <div>
-                <p class="content-title">Kategori</p>
-                <p class="content-sub-title">Manajemen data kategori</p>
+                <p class="content-title">Unit</p>
+                <p class="content-sub-title">Manajemen data unit</p>
             </div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
@@ -43,10 +43,10 @@
                     <div class="col-md-12">
                         <div class="table-container p-4">
                             <div class="content-header mb-3">
-                                <p class="header-title">Data Kategori</p>
+                                <p class="header-title">Data Unit</p>
                                 <a href="{{ route('admin.category.add') }}" class="btn-add">
                                     <i class='bx bx-plus'></i>
-                                    <span>Tambah Kategori</span>
+                                    <span>Tambah Unit</span>
                                 </a>
                             </div>
                             <hr class="custom-divider"/>
@@ -54,17 +54,16 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Gambar</th>
-                                    <th>Nama Kategori</th>
+                                    <th>Kategori</th>
+                                    <th>Kode unit</th>
+                                    <th>Harga</th>
+                                    <th>Deskripsi</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
-{{--                    <div class="col-md-4">--}}
-
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -96,22 +95,19 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false, orderable: false, className: 'text-center middle-header',},
                     {
-                        data: 'gambar',
-                        orderable: false,
-                        className: 'middle-header text-center',
-                        render: function (data) {
-                            if (data !== null) {
-                                return '<div class="w-100 d-flex justify-content-center">' +
-                                    '<a href="' + data + '" target="_blank" class="box-product-image">' +
-                                    '<img src="' + data + '" alt="product-image" />' +
-                                    '</a>' +
-                                    '</div>';
-                            }
-                            return '-';
-                        }
+                        data: 'kategori.nama',
+                        className: 'middle-header',
                     },
                     {
                         data: 'nama',
+                        className: 'middle-header',
+                    },
+                    {
+                        data: 'harga',
+                        className: 'middle-header',
+                    },
+                    {
+                        data: 'deskripsi',
                         className: 'middle-header',
                     },
                     {

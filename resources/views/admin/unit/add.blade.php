@@ -26,8 +26,8 @@
     <div class="p-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
             <div>
-                <p class="content-title">Kategori</p>
-                <p class="content-sub-title">Manajemen data kategori</p>
+                <p class="content-title">Unit</p>
+                <p class="content-sub-title">Manajemen data unit</p>
             </div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
