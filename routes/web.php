@@ -17,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\Customer\HomeController::class, 'index'])->name('customer.home');
 
 Route::match(['post', 'get'],'/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::match(['post', 'get'],'/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::get('/sewaps', function () {
-    return view('sewaps');
-});
+Route::get('/{id}/product', [\App\Http\Controllers\Customer\ProductController::class,'index'])->name('customer.product');
+Route::get('/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class,'detail'])->name('customer.product.detail');
 
+Route::match(['post', 'get'], '/keranjang', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
 
 Route::get('/bayar', function () {
     return view('bayar');

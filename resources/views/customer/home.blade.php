@@ -1,4 +1,4 @@
-@extends('base')
+@extends('customer.base')
 
 @section('morecss')
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"
@@ -6,46 +6,13 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
           integrity="sha256-5uKiXEwbaQh9cgd2/5Vp6WmMnsUr3VZZw0a8rKnOKNU=" crossorigin="anonymous">
+
 @endsection
 
 @section('content')
     <div class="g-hero">
-        <img src="{{ asset('images/local/hero-image.webp') }}"/>
+        <img src="{{ asset('images/local/hero-image.webp') }}" alt="hero-image"/>
     </div>
-
-{{--    <div class="g-info">--}}
-{{--        <div class="info container ">--}}
-{{--            <span class="score tahun-pengalaman">0</span>--}}
-{{--            <div class="d-flex flex-column ">--}}
-{{--                <span class="definition">Tahun </span>--}}
-{{--                <span class="definition">Pengalaman </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="line"></div>--}}
-{{--        <div class="info container ">--}}
-{{--            <span class="score  titikstrategis">0</span>--}}
-{{--            <div class="d-flex flex-column ">--}}
-{{--                <span class="definition">Unit </span>--}}
-{{--                <span class="definition">Tersewa </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="line"></div>--}}
-{{--        <div class="info container ">--}}
-{{--            <span class="score happycustomer">0</span>--}}
-{{--            <div class="d-flex flex-column ">--}}
-{{--                <span class="definition">Happy</span>--}}
-{{--                <span class="definition">Customer </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="line"></div>--}}
-{{--        <div class="info container ">--}}
-{{--            <span class="score overalrating">0</span>--}}
-{{--            <div class="d-flex flex-column ">--}}
-{{--                <span class="definition">Overal</span>--}}
-{{--                <span class="definition">Rating </span>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
 
     <div class="mb-5"></div>
     <div class="g-container-left">
@@ -54,9 +21,9 @@
         </div>
         <div class="d-flex gap-4">
             @foreach($categories as $category)
-                <a class="card-unit" href="/sewaps">
+                <a class="card-unit" href="{{ route('customer.product', ['id' => $category->id]) }}">
                     <img
-                        src="{{ asset($category->gambar) }}"/>
+                        src="{{ asset($category->gambar) }}" alt="product-image"/>
                     <div class="content">
                         <p class="mb-0 fw-bold">{{ $category->nama }}</p>
                         <p class="mb-0">Tersedia: {{ $category->count_product }} Unit</p>
@@ -65,13 +32,6 @@
             @endforeach
         </div>
     </div>
-
-
-
-
-
-
-
     <div class="mb-5"></div>
     {{-- PORTFOLIO --}}
 
@@ -79,7 +39,7 @@
 
     {{-- ONE WEEK SERVICES --}}
     <div class="oneweek-services">
-        <img src={{ asset('images/local/calendar.png') }} />
+        <img src="{{ asset('images/local/calendar.png') }}" alt="calendar-image" />
         <div>
             <p class="title">Sewa Lebih Lama Lebih Untung</p>
             <p class="text">Dapatkan diskon lebih banyak dengan menyewa Playstation kami dalam jangka waktu yang

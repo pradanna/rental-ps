@@ -65,8 +65,8 @@
                             <button class="btn-login   mt-4 d-block mb-3 w-100 " type="submit">LOGIN
                             </button>
 
-                            <span class="d-block  text-center ">Bila ada kendala dalam login akun, silahkan hubungi
-                                <a href="#">admin</a></span>
+                            <span class="d-block  text-center ">Belum Punya Akun?
+                                <a href="{{ route('register') }}">Daftar</a></span>
                         </form>
                     </div>
                 </div>
