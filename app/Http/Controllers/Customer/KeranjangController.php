@@ -17,19 +17,36 @@ class KeranjangController extends CustomController
 
     public function index()
     {
-        if ($this->request->method() === 'POST' && $this->request->ajax()) {
-            return $this->addToCart();
-        }
-
+        $data = Keranjang::with(['product.kategori'])
+            ->whereNull('transaksi_id')
+            ->where('user_id', '=', auth()->id())
+            ->get();
         if ($this->request->ajax()) {
-            $data = Keranjang::with(['product'])
-                ->whereNull('transaksi_id')
-                ->where('user_id', '=', auth()->id())
-                ->get();
             return $this->basicDataTables($data);
         }
+        $total = $data->sum('total');
+        return view('customer.keranjang')->with([
+            'total' => $total
+        ]);
+    }
 
-        return view('customer.keranjang');
+    public function destroy($id)
+    {
+        try {
+            Keranjang::destroy($id);
+            return $this->jsonSuccessResponse('Berhasil menghapus data...');
+        } catch (\Exception $e) {
+            return $this->jsonErrorResponse();
+        }
+    }
+
+    public function checkout()
+    {
+        try {
+
+        }catch (\Exception $e) {
+
+        }
     }
 
     private function addToCart()

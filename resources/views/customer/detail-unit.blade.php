@@ -11,16 +11,27 @@
 @endsection
 
 @section('content')
-    <div class="lazy-backdrop" id="overlay-loading">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <div class="spinner-border text-light" role="status">
-            </div>
-            <p class="text-light">Sedang Menyimpan Data...</p>
-        </div>
-    </div>
+    @if (\Illuminate\Support\Facades\Session::has('failed'))
+        <script>
+            Swal.fire("Ooops", '{{ \Illuminate\Support\Facades\Session::get('failed') }}', "error")
+        </script>
+    @endif
+    @if (\Illuminate\Support\Facades\Session::has('success'))
+        <script>
+            Swal.fire({
+                title: 'Success',
+                text: '{{ \Illuminate\Support\Facades\Session::get('success') }}',
+                icon: 'success',
+                timer: 700
+            }).then(() => {
+                window.location.reload();
+            })
+        </script>
+    @endif
     <div class="sewaps">
         <div class="p-4">
-            <p style="color: var(--dark); font-size: 1.5em; font-weight: bold">{{ $product->kategori->nama }} Unit {{ $product->nama }}</p>
+            <p style="color: var(--dark); font-size: 1.5em; font-weight: bold">{{ $product->kategori->nama }}
+                Unit {{ $product->nama }}</p>
             <div class="product-detail-container">
                 <div class="product-detail-image-container">
                     <div class="image-container">
@@ -39,8 +50,12 @@
                 <div class="product-detail-action-container">
                     <p style="font-weight: bold; color: var(--dark); margin-bottom: 5px;">Ringkasan Sewa</p>
                     <hr class="custom-divider"/>
+                    <form id="form-data" method="POST">
+                        @csrf
+                    </form>
                     @auth()
-                        <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}" style="height: fit-content; font-size: 1em;">Keranjang</button>
+                        <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}"
+                           style="height: fit-content; font-size: 1em;">Keranjang</button>
                     @else
                         <a href="{{ route('login') }}" class="btn-cart" style="height: fit-content; font-size: 1em;">Keranjang</a>
                     @endauth
@@ -53,41 +68,17 @@
 @section('morejs')
     <script src="{{ asset('/js/helper.js') }}"></script>
     <script>
-        var path = '/{{ request()->path() }}';
-        var cartURL = '{{ route('customer.keranjang') }}';
-
-        function eventAddToCart() {
+        function eventSave() {
             $('#btn-cart').on('click', function (e) {
                 e.preventDefault();
-                let id = this.dataset.id;
-                addToCartHandler(id)
-            })
-        }
-
-        async function addToCartHandler(id) {
-            try {
-                blockLoading(true);
-                await $.post(cartURL, {
-                    id
-                });
-                blockLoading(false);
-                Swal.fire({
-                    title: 'Success',
-                    text: 'Berhasil menambahkan product ke keranjang...',
-                    icon: 'success',
-                    timer: 700
-                }).then(() => {
-                    window.location.reload();
+                AlertConfirm('Konfirmasi!', 'Apakah anda yakin ingin menambah keranjang?', function () {
+                    $('#form-data').submit();
                 })
-            }catch (e) {
-                blockLoading(false);
-                let error_message = JSON.parse(e.responseText);
-                ErrorAlert('Error', error_message.message);
-            }
+            });
         }
 
         $(document).ready(function () {
-            eventAddToCart();
+            eventSave();
         });
     </script>
 @endsection

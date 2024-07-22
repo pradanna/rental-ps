@@ -21,12 +21,10 @@ Route::match(['post', 'get'],'/register', [\App\Http\Controllers\AuthController:
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::get('/{id}/product', [\App\Http\Controllers\Customer\ProductController::class,'index'])->name('customer.product');
-Route::get('/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class,'detail'])->name('customer.product.detail');
+Route::match(['post', 'get'],'/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class,'detail'])->name('customer.product.detail');
 
-Route::group(['prefix' => 'keranjang'], function () {
-    Route::match(['post', 'get'], '/', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
-    Route::post('/checkout', [\App\Http\Controllers\Customer\KeranjangController::class, 'checkout'])->name('customer.checkout');
-});
+Route::match(['post', 'get'], '/keranjang', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
+Route::post( '/keranjang/{id}/delete', [\App\Http\Controllers\Customer\KeranjangController::class, 'destroy'])->name('customer.keranjang.delete');
 
 Route::get('/bayar', function () {
     return view('bayar');
