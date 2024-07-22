@@ -23,7 +23,10 @@ Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->
 Route::get('/{id}/product', [\App\Http\Controllers\Customer\ProductController::class,'index'])->name('customer.product');
 Route::get('/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class,'detail'])->name('customer.product.detail');
 
-Route::match(['post', 'get'], '/keranjang', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
+Route::group(['prefix' => 'keranjang'], function () {
+    Route::match(['post', 'get'], '/', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
+    Route::post('/checkout', [\App\Http\Controllers\Customer\KeranjangController::class, 'checkout'])->name('customer.checkout');
+});
 
 Route::get('/bayar', function () {
     return view('bayar');
