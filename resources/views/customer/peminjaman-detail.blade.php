@@ -44,6 +44,8 @@
                         @elseif($data->status === 2)
                             <div class="chip-status-danger">pembayaran di tolak</div>
                         @elseif($data->status === 3)
+                            <div class="chip-status-info">barang siap diambil</div>
+                        @elseif($data->status === 4)
                             <div class="chip-status-info">sedang meminjam</div>
                         @elseif($data->status === 4)
                             <div class="chip-status-success">selesai</div>

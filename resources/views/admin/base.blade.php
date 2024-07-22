@@ -86,14 +86,14 @@
                         </a>
                     </li>
                     <li>
-                        <a class="menu tooltip {{ Request::is('admin/pesanan') ? 'active' : '' }}"
-                            href="/admin/pesanan">
+                        <a class="menu tooltip {{ Request::is('admin/peminjaman') ? 'active' : '' }}"
+                            href="{{ route('admin.transaction') }}">
 
                             <span class="material-symbols-outlined">
                                 history
                             </span>
-                            <span class="text-menu"> Pesanan</span>
-                            <span class="tooltiptext">Pesanan</span>
+                            <span class="text-menu"> Peminjaman</span>
+                            <span class="tooltiptext">Peminjaman</span>
                         </a>
                     </li>
                 </ul>

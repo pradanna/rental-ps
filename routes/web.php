@@ -60,6 +60,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::match(['post', 'get'], '/{id}/edit', [\App\Http\Controllers\Admin\UnitController::class, 'edit'])->name('admin.barang.edit');
         Route::post('/{id}/delete', [\App\Http\Controllers\Admin\UnitController::class, 'delete'])->name('admin.barang.delete');
     });
+
+    Route::group(['prefix' => 'peminjaman'], function (){
+        Route::get('/', [\App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('admin.transaction');
+        Route::match(['post', 'get'],'/{id}/peminjaman-baru', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_new'])->name('admin.transaction.new');
+    });
 });
 
 //Route::get('/admin', function () {
@@ -74,8 +79,8 @@ Route::group(['prefix' => 'admin'], function () {
 //    return view('admin.barang');
 //});
 //
-//Route::get('/admin/pesanan', function () {
-//    return view('admin.pesanan');
+//Route::get('/admin/peminjaman', function () {
+//    return view('admin.peminjaman');
 //});
 //
 //Route::get('/admin/detailpesanan', function () {

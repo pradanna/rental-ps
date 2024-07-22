@@ -122,9 +122,12 @@
                                     status = '<div class="chip-status-danger">pembayaran di tolak</div>';
                                     break;
                                 case  3:
-                                    status = '<div class="chip-status-info">sedang meminjam</div>';
+                                    status = '<div class="chip-status-info">barang siap diambil</div>';
                                     break;
                                 case  4:
+                                    status = '<div class="chip-status-info">sedang meminjam</div>';
+                                    break;
+                                case  5:
                                     status = '<div class="chip-status-success">selesai</div>';
                                     break;
                                 default:

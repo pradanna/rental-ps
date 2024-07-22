@@ -15,8 +15,9 @@ class Transaksi extends Model
     // 0 menunggu pembayaran
     // 1 menunggu konfirmasi pembayaran
     // 2 pembayaran di tolak
-    // 3 sedang meminjam
-    // 4 selesai
+    // 3 menunggu di ambil
+    // 4 sedang meminjam
+    // 5 selesai
 
     protected $fillable = [
         'user_id',
@@ -49,5 +50,10 @@ class Transaksi extends Model
     public function keranjang()
     {
         return $this->hasMany(Keranjang::class, 'transaksi_id');
+    }
+
+    public function pembayaran_status()
+    {
+        return $this->hasOne(Pembayaran::class, 'transaksi_id')->orderBy('created_at', 'DESC');
     }
 }
