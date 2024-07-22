@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
           integrity="sha256-5uKiXEwbaQh9cgd2/5Vp6WmMnsUr3VZZw0a8rKnOKNU=" crossorigin="anonymous">
     {{-- DATA TABLES --}}
-    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
-    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" />
+    <link href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css"/>
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css"/>
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.member.css') }}" rel="stylesheet">
     <style>
@@ -32,6 +32,11 @@
 @endsection
 
 @section('content')
+    @if (\Illuminate\Support\Facades\Session::has('failed'))
+        <script>
+            Swal.fire("Ooops", '{{ \Illuminate\Support\Facades\Session::get('failed') }}', "error")
+        </script>
+    @endif
     <div class="sewaps">
         <div class="p-4">
             <p style="color: var(--dark); font-size: 1.5em; font-weight: bold">Keranjang Sewa</p>
@@ -55,14 +60,24 @@
                 <div class="cart-action-container">
                     <p style="font-size: 1em; font-weight: bold; color: var(--dark);">Ringkasan Belanja</p>
                     <hr class="custom-divider"/>
-                    <div class="w-100">
-                        <div class="w-100 mb-1">
-                            <label for="pcb_date" class="form-label input-label">Tanggal Kembali</label>
-                            <input type="date" class="text-input"
-                                   id="pcb_date"
-                                   name="pcb_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
+                    <form method="post" id="form-checkout" action="{{route('customer.keranjang.checkout')}}">
+                        @csrf
+                        <input type="hidden" name="diff_date" value="0" id="diff_date">
+                        <div class="w-100">
+                            <div class="w-100 mb-1">
+                                <label for="date_return" class="form-label input-label">Tanggal Kembali</label>
+                                <input type="date" class="text-input"
+                                       id="date_return"
+                                       name="date_return" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
+                            </div>
+                            <div class="w-100 mb-1">
+                                <label for="dp" class="form-label input-label">DP</label>
+                                <input type="number" class="text-input"
+                                       id="dp"
+                                       name="dp" value="0"/>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <hr class="custom-divider"/>
                     <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
                         <span style="color: var(--dark-tint); font-size: 0.8em">Total</span>
@@ -70,7 +85,9 @@
                               style="color: var(--dark); font-weight: 600;">Rp{{ number_format($total, 0, ',', '.') }}</span>
                     </div>
                     <hr class="custom-divider"/>
-                    <a href="#" class="btn-action-primary mb-1" id="btn-checkout" style="padding: 0.75rem 1rem; height: fit-content;">Checkout</a>
+                    <button class="btn-action-primary mb-1" id="btn-checkout"
+                            style="padding: 0.75rem 1rem; height: fit-content;">Checkout
+                    </button>
                 </div>
             </div>
         </div>
@@ -86,6 +103,16 @@
     <script>
         var path = '/{{ request()->path() }}';
         var table;
+        var totalSTR = '{{ $total }}';
+
+        function eventCheckout() {
+            $('#btn-checkout').on('click', function (e) {
+                e.preventDefault();
+                AlertConfirm('Konfirmasi!', 'Apakah anda yakin ingin melakukan peminjaman?', function () {
+                    $('#form-checkout').submit();
+                })
+            });
+        }
 
         function generateTable() {
             table = $('#table-data').DataTable({
@@ -165,8 +192,27 @@
             })
         }
 
+        function eventChangeTotal() {
+            $('#date_return').on('change', function (e) {
+                let now = new Date();
+                let returnDateString = $('#date_return').val();
+                let returnDate = new Date(returnDateString);
+                let diffInTime = returnDate.getTime() - now.getTime();
+                let diffInDays = Math.round(diffInTime / (1000 * 3600 * 24));
+                let subTotal = parseInt(totalSTR);
+                let total = subTotal * diffInDays;
+                let totalString = total.toLocaleString('id-ID');
+                $('#lbl-sub-total').html('Rp.' + totalString);
+                $('#diff_date').val(diffInDays);
+                console.log(diffInDays);
+            });
+
+        }
+
         $(document).ready(function () {
             generateTable();
+            eventCheckout();
+            eventChangeTotal();
         })
     </script>
 @endsection

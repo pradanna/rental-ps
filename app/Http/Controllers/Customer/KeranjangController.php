@@ -7,6 +7,9 @@ namespace App\Http\Controllers\Customer;
 use App\Helper\CustomController;
 use App\Models\Keranjang;
 use App\Models\Product;
+use App\Models\Transaksi;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class KeranjangController extends CustomController
 {
@@ -43,9 +46,49 @@ class KeranjangController extends CustomController
     public function checkout()
     {
         try {
+            DB::beginTransaction();
+            $carts = Keranjang::with([])
+                ->where('user_id', '=', auth()->id())
+                ->whereNull('transaksi_id')
+                ->get();
 
-        }catch (\Exception $e) {
+            $dp = $this->postField('dp');
+            $date_return = $this->postField('date_return');
+            $diff_date = $this->postField('diff_date');
+            $total = $carts->sum('total') * $diff_date;
+            $transactionRef = 'SJY-' . date('YmdHis');
 
+//            $now = Carbon::now();
+//            $returnDate = Carbon::parse($date_return);
+//            $dateDiff = $returnDate->diff($now)->days;
+//            dd($dateDiff);
+            $data_request = [
+                'user_id' => auth()->id(),
+                'tanggal' => Carbon::now()->format('Y-m-d'),
+                'no_peminjaman' => $transactionRef,
+                'tanggal_pinjam' => Carbon::now()->format('Y-m-d'),
+                'tanggal_kembali' => $date_return,
+                'sub_total' => $total,
+                'dp' => $dp,
+                'denda' => 0,
+                'total' => $total,
+                'lunas' => false,
+                'status' => 0,
+                'alamat' => '-',
+            ];
+            $transaction = Transaksi::create($data_request);
+
+            foreach ($carts as $cart) {
+                $cart->update([
+                    'transaksi_id' => $transaction->id
+                ]);
+            }
+            $transactionID = $transaction->id;
+            DB::commit();
+            return redirect()->route('customer.transaction.payment', ['id' => $transactionID]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('failed', 'terjadi kesalahan server...');
         }
     }
 

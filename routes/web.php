@@ -16,16 +16,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\Customer\HomeController::class, 'index'])->name('customer.home');
 
-Route::match(['post', 'get'],'/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
-Route::match(['post', 'get'],'/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::match(['post', 'get'], '/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::match(['post', 'get'], '/register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::get('/{id}/product', [\App\Http\Controllers\Customer\ProductController::class,'index'])->name('customer.product');
-Route::match(['post', 'get'],'/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class,'detail'])->name('customer.product.detail');
+Route::get('/{id}/product', [\App\Http\Controllers\Customer\ProductController::class, 'index'])->name('customer.product');
+Route::match(['post', 'get'], '/{id}/product/{product_id}', [\App\Http\Controllers\Customer\ProductController::class, 'detail'])->name('customer.product.detail');
 
-Route::match(['post', 'get'], '/keranjang', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
-Route::post( '/keranjang/{id}/delete', [\App\Http\Controllers\Customer\KeranjangController::class, 'destroy'])->name('customer.keranjang.delete');
+Route::group(['prefix' => 'keranjang'], function () {
+    Route::match(['post', 'get'], '/', [\App\Http\Controllers\Customer\KeranjangController::class, 'index'])->name('customer.keranjang');
+    Route::post('/{id}/delete', [\App\Http\Controllers\Customer\KeranjangController::class, 'destroy'])->name('customer.keranjang.delete');
+    Route::post('/checkout', [\App\Http\Controllers\Customer\KeranjangController::class, 'checkout'])->name('customer.keranjang.checkout');
 
+});
+
+Route::group(['prefix' => 'transaksi'], function () {
+    Route::get('/', [\App\Http\Controllers\Customer\PeminjamanController::class, 'index'])->name('customer.transaction');
+    Route::match(['post', 'get'],'/{id}/pembayaran', [\App\Http\Controllers\Customer\PembayaranController::class, 'index'])->name('customer.transaction.payment');
+});
 Route::get('/bayar', function () {
     return view('bayar');
 });
@@ -37,17 +45,17 @@ Route::get('/daftar', function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::group(['prefix' => 'kategori'], function (){
+    Route::group(['prefix' => 'kategori'], function () {
         Route::get('/', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.category');
-        Route::match(['post', 'get'],'/add', [\App\Http\Controllers\Admin\CategoryController::class, 'add'])->name('admin.category.add');
-        Route::match(['post', 'get'],'/{id}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::match(['post', 'get'], '/add', [\App\Http\Controllers\Admin\CategoryController::class, 'add'])->name('admin.category.add');
+        Route::match(['post', 'get'], '/{id}/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::post('/{id}/delete', [\App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('admin.category.delete');
     });
 
-    Route::group(['prefix' => 'barang'], function (){
-        Route::match(['post', 'get'],'/', [\App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.barang');
-        Route::match(['post', 'get'],'/add', [\App\Http\Controllers\Admin\UnitController::class, 'add'])->name('admin.barang.add');
-        Route::match(['post', 'get'],'/{id}/edit', [\App\Http\Controllers\Admin\UnitController::class, 'edit'])->name('admin.barang.edit');
+    Route::group(['prefix' => 'barang'], function () {
+        Route::match(['post', 'get'], '/', [\App\Http\Controllers\Admin\UnitController::class, 'index'])->name('admin.barang');
+        Route::match(['post', 'get'], '/add', [\App\Http\Controllers\Admin\UnitController::class, 'add'])->name('admin.barang.add');
+        Route::match(['post', 'get'], '/{id}/edit', [\App\Http\Controllers\Admin\UnitController::class, 'edit'])->name('admin.barang.edit');
         Route::post('/{id}/delete', [\App\Http\Controllers\Admin\UnitController::class, 'delete'])->name('admin.barang.delete');
     });
 });
