@@ -32,8 +32,10 @@ Route::group(['prefix' => 'keranjang'], function () {
 
 Route::group(['prefix' => 'transaksi'], function () {
     Route::get('/', [\App\Http\Controllers\Customer\PeminjamanController::class, 'index'])->name('customer.transaction');
+    Route::get('/{id}', [\App\Http\Controllers\Customer\PeminjamanController::class, 'detail'])->name('customer.transaction.detail');
     Route::match(['post', 'get'],'/{id}/pembayaran', [\App\Http\Controllers\Customer\PembayaranController::class, 'index'])->name('customer.transaction.payment');
 });
+
 Route::get('/bayar', function () {
     return view('bayar');
 });

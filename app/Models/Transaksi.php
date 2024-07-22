@@ -11,6 +11,13 @@ class Transaksi extends Model
 
     protected $table = 'transaksi';
 
+    //status note
+    // 0 menunggu pembayaran
+    // 1 menunggu konfirmasi pembayaran
+    // 2 pembayaran di tolak
+    // 3 sedang meminjam
+    // 4 selesai
+
     protected $fillable = [
         'user_id',
         'no_peminjaman',
@@ -37,5 +44,10 @@ class Transaksi extends Model
     public function getKekuranganAttribute()
     {
         return $this->total - $this->dp;
+    }
+
+    public function keranjang()
+    {
+        return $this->hasMany(Keranjang::class, 'transaksi_id');
     }
 }

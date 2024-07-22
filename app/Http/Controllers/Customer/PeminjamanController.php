@@ -25,4 +25,15 @@ class PeminjamanController extends CustomController
         }
         return view('customer.peminjaman');
     }
+
+    public function detail($id)
+    {
+        $data = Transaksi::with(['user', 'keranjang.product.kategori'])
+            ->findOrFail($id)->append([
+                'kekurangan'
+            ]);
+        return view('customer.peminjaman-detail')->with([
+            'data' => $data
+        ]);
+    }
 }

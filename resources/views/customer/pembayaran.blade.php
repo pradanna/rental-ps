@@ -188,7 +188,7 @@
                             icon: 'success',
                             timer: 700
                         }).then(() => {
-                            window.location.href = '/pesanan';
+                            window.location.href = '/transaksi';
                         });
                     });
 

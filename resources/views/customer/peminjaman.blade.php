@@ -122,15 +122,9 @@
                                     status = '<div class="chip-status-danger">pembayaran di tolak</div>';
                                     break;
                                 case  3:
-                                    status = '<div class="chip-status-info">barang di packing</div>';
+                                    status = '<div class="chip-status-info">sedang meminjam</div>';
                                     break;
                                 case  4:
-                                    status = '<div class="chip-status-info">barang siap di ambil</div>';
-                                    break;
-                                case  5:
-                                    status = '<div class="chip-status-info">barang di kirim</div>';
-                                    break;
-                                case  6:
                                     status = '<div class="chip-status-success">selesai</div>';
                                     break;
                                 default:
@@ -145,16 +139,9 @@
                         className: 'text-center middle-header',
                         render: function (data) {
                             let id = data['id'];
-                            let isDelivery = data['is_kirim'];
                             let urlDetail = path + '/' + id;
-                            if (isDelivery) {
-                                return '<div class="w-100 d-flex justify-content-center align-items-center gap-1">' +
-                                    '<div class="delivery-status-container"><i class="bx bx-car"></i></div>' +
-                                    '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action-delete" data-id="' + id + '"><i class="bx bx-dots-vertical-rounded"></i></a>' +
-                                    '</div>';
-                            }
                             return '<div class="w-100 d-flex justify-content-center align-items-center gap-1">' +
-                                '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action-delete" data-id="' + id + '"><i class="bx bx-dots-vertical-rounded"></i></a>' +
+                                '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action-delete" data-id="' + id + '"><span class="material-symbols-outlined" style="font-size: 0.8em;">more_vert</span></a>' +
                                 '</div>';
                         }
                     }
