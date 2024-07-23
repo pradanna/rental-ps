@@ -72,11 +72,27 @@
                     local_mall
                 </span>
             </a>
-            <a href="#">
+            <div class="dropdown">
+{{--                <a href="#" style="text-decoration: none" class="nav-menu-item" id="drop-profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                    <i class='bx bx-user' style="font-size: 16px"></i>--}}
+{{--                </a>--}}
+                <a href="#" class="nav-menu-item" id="drop-profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="material-symbols-outlined" style="color: var(--dark); font-size: 0.8em;">
                     person
                 </span>
-            </a>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="drop-profile">
+                    <li><a class="dropdown-item" href="{{ route('customer.transaction') }}" style="font-size: 0.8em; font-weight: 600; var(--dark);">Peminjaman</a></li>
+                    {{--                    <li><a class="dropdown-item" href="#" style="font-size: 0.8em; font-weight: 600; var(--dark);">Akun</a></li>--}}
+                    <hr/>
+                    <li><a class="dropdown-item" href="{{ route('logout') }}" style="font-size: 0.8em; font-weight: 600; var(--dark);">Logout</a></li>
+                </ul>
+            </div>
+{{--            <a href="#">--}}
+{{--                <span class="material-symbols-outlined" style="color: var(--dark); font-size: 0.8em;">--}}
+{{--                    person--}}
+{{--                </span>--}}
+{{--            </a>--}}
         @else
             <a href="{{ route('login') }}">
                 <span class="material-symbols-outlined" style="color: var(--dark); font-size: 0.8em;">

@@ -68,6 +68,24 @@
 
 
                     <li>
+                        <a class="menu tooltip {{ Request::is('admin/pengguna*') ? 'active' : '' }}"
+                            href="{{ route('admin.pengguna') }}"><span class="material-symbols-outlined">
+                                person
+                            </span>
+                            <span class="text-menu"> Pengguna</span>
+                            <span class="tooltiptext">Pengguna</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="menu tooltip {{ Request::is('admin/member*') ? 'active' : '' }}"
+                            href="{{ route('admin.member') }}"><span class="material-symbols-outlined">
+                                group
+                            </span>
+                            <span class="text-menu"> Member</span>
+                            <span class="tooltiptext">Member</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="menu tooltip {{ Request::is('admin/kategori*') ? 'active' : '' }}"
                             href="{{ route('admin.category') }}"><span class="material-symbols-outlined">
                                 category

@@ -26,13 +26,13 @@
     <div class="p-3">
         <div class="d-flex justify-content-between align-items-center mb-1">
             <div>
-                <p class="content-title">Kategori</p>
-                <p class="content-sub-title">Manajemen data kategori</p>
+                <p class="content-title">Pengguna</p>
+                <p class="content-sub-title">Manajemen data pengguna</p>
             </div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Kategori</li>
+                    <li class="breadcrumb-item active" aria-current="page">Pengguna</li>
                 </ol>
             </nav>
         </div>
@@ -42,8 +42,8 @@
                     <div class="col-md-12">
                         <div class="table-container p-4">
                             <div class="content-header mb-3">
-                                <p class="header-title">Data Kategori</p>
-                                <a href="{{ route('admin.category.add') }}" class="btn-add">
+                                <p class="header-title">Data Pengguna</p>
+                                <a href="{{ route('admin.pengguna.add') }}" class="btn-add">
                                     <i class='bx bx-plus'></i>
                                     <span>Tambah Kategori</span>
                                 </a>
@@ -52,18 +52,14 @@
                             <table id="table-data" class="table table-striped" style="width:100%">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Gambar</th>
-                                    <th>Nama Kategori</th>
-                                    <th>Action</th>
+                                    <th width="5%" class="text-center">#</th>
+                                    <th>Username</th>
+                                    <th width="10%" class="text-center">Aksi</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
                     </div>
-{{--                    <div class="col-md-4">--}}
-
-{{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -95,22 +91,7 @@
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false, orderable: false, className: 'text-center middle-header',},
                     {
-                        data: 'gambar',
-                        orderable: false,
-                        className: 'middle-header text-center',
-                        render: function (data) {
-                            if (data !== null) {
-                                return '<div class="w-100 d-flex justify-content-center">' +
-                                    '<a href="' + data + '" target="_blank" class="box-product-image">' +
-                                    '<img src="' + data + '" alt="product-image" />' +
-                                    '</a>' +
-                                    '</div>';
-                            }
-                            return '-';
-                        }
-                    },
-                    {
-                        data: 'nama',
+                        data: 'username',
                         className: 'middle-header',
                     },
                     {
