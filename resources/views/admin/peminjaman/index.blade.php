@@ -87,6 +87,25 @@
                     </table>
                 </div>
             </div>
+            <div class="tab-pane fade" id="pills-ready" role="tabpanel" aria-labelledby="pills-ready-tab">
+                <div class="card-content">
+                    <div class="content-header mb-3">
+                        <p class="header-title">Data Pesanan Menunggu Di Ambil</p>
+                    </div>
+                    <hr class="custom-divider"/>
+                    <table id="table-data-ready-order" class="display table w-100">
+                        <thead>
+                        <tr>
+                            <th width="5%" class="text-center">#</th>
+                            <th width="20%" class="text-center">No. Peminjaman</th>
+                            <th>Nama</th>
+                            <th width="15%" class="text-center">No. HP</th>
+                            <th width="8%" class="text-center"></th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
             <div class="tab-pane fade" id="pills-process" role="tabpanel" aria-labelledby="pills-process-tab">
                 <div class="card-content">
                     <div class="content-header mb-3">
@@ -97,50 +116,32 @@
                         <thead>
                         <tr>
                             <th width="5%" class="text-center">#</th>
-                            <th width="20%" class="text-center">No. Penjualan</th>
-                            <th width="8%" class="text-center">Di Kirim</th>
-                            <th width="15%" class="text-center">Status</th>
-                            <th>Alamat</th>
+                            <th width="20%" class="text-center">No. Peminjaman</th>
+                            <th>Nama</th>
+                            <th width="15%" class="text-center">No. HP</th>
                             <th width="8%" class="text-center"></th>
                         </tr>
                         </thead>
                     </table>
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-ready" role="tabpanel" aria-labelledby="pills-ready-tab">
-                <div class="card-content">
-                    <div class="content-header mb-3">
-                        <p class="header-title">Data Pesanan Di Proses</p>
-                    </div>
-                    <hr class="custom-divider"/>
-                    <table id="table-data-process-order" class="display table w-100">
-                        <thead>
-                        <tr>
-                            <th width="5%" class="text-center">#</th>
-                            <th width="20%" class="text-center">No. Penjualan</th>
-                            <th width="8%" class="text-center">Di Kirim</th>
-                            <th width="15%" class="text-center">Status</th>
-                            <th>Alamat</th>
-                            <th width="8%" class="text-center"></th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+
             <div class="tab-pane fade" id="pills-finish" role="tabpanel" aria-labelledby="pills-finish-tab">
                 <div class="card-content">
                     <div class="content-header mb-3">
-                        <p class="header-title">Data Pesanan Di Proses</p>
+                        <p class="header-title">Data Pesanan Selesai</p>
                     </div>
                     <hr class="custom-divider"/>
                     <table id="table-data-finish-order" class="display table w-100">
                         <thead>
                         <tr>
                             <th width="5%" class="text-center">#</th>
-                            <th>No. Penjualan</th>
-                            <th width="10%" class="text-end">Sub Total</th>
-                            <th width="10%" class="text-end">Ongkir</th>
-                            <th width="10%" class="text-end">Total</th>
+                            <th width="12%" class="text-center">Tanggal</th>
+                            <th width="20%" class="text-center">No. Peminjaman</th>
+                            <th>Nama</th>
+                            <th width="15%" class="text-end">Sub Total</th>
+                            <th width="15%" class="text-end">Denda</th>
+                            <th width="15%" class="text-end">Total</th>
                             <th width="8%" class="text-center"></th>
                         </tr>
                         </thead>
@@ -148,37 +149,7 @@
                 </div>
             </div>
         </div>
-{{--        <div class="kategori">--}}
-{{--            <div class="container-admin px-3">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-12">--}}
-{{--                        <div class="table-container p-4">--}}
-{{--                            <div class="content-header mb-3">--}}
-{{--                                <p class="header-title">Data Kategori</p>--}}
-{{--                                <a href="{{ route('admin.category.add') }}" class="btn-add">--}}
-{{--                                    <i class='bx bx-plus'></i>--}}
-{{--                                    <span>Tambah Kategori</span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <hr class="custom-divider"/>--}}
-{{--                            <table id="table-data" class="table table-striped" style="width:100%">--}}
-{{--                                <thead>--}}
-{{--                                <tr>--}}
-{{--                                    <th>#</th>--}}
-{{--                                    <th>Gambar</th>--}}
-{{--                                    <th>Nama Kategori</th>--}}
-{{--                                    <th>Action</th>--}}
-{{--                                </tr>--}}
-{{--                                </thead>--}}
-{{--                            </table>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    --}}{{--                    <div class="col-md-4">--}}
 
-{{--                    --}}{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
     </div>
 
 @endsection
@@ -187,7 +158,7 @@
     <script src="{{ asset('/js/helper.js') }}"></script>
     <script>
         var path = '/{{ request()->path() }}';
-        var table, tableProcess, tableFinish;
+        var table, tableReady, tableProcess, tableFinish;
 
         function generateTableNewOrder() {
             table = $('#table-data-new-order').DataTable({
@@ -254,9 +225,204 @@
             });
         }
 
+        function generateTableReady() {
+            tableReady = $('#table-data-ready-order').DataTable({
+                ajax: {
+                    type: 'GET',
+                    url: path,
+                    'data': function (d) {
+                        d.status = 2
+                    }
+                },
+                "aaSorting": [],
+                "order": [],
+                scrollX: true,
+                responsive: true,
+                paging: true,
+                "fnDrawCallback": function (setting) {
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                    },
+                    {
+                        data: 'no_peminjaman',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: 'user.member.nama',
+                        className: 'middle-header',
+                    },
+                    {
+                        data: 'user.member.no_hp',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                        render: function (data) {
+                            let id = data['id'];
+                            let urlDetail = path + '/' + id + '/siap-diambil';
+                            return '<div class="w-100 d-flex justify-content-center align-items-center gap-1">' +
+                                '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action" data-id="' + id + '"><span class="material-symbols-outlined" style="font-size: 0.8em;">more_vert</span></a>' +
+                                '</div>';
+                        }
+                    }
+                ],
+            });
+        }
 
+        function generateTableProcess() {
+            tableProcess = $('#table-data-process-order').DataTable({
+                ajax: {
+                    type: 'GET',
+                    url: path,
+                    'data': function (d) {
+                        d.status = 3
+                    }
+                },
+                "aaSorting": [],
+                "order": [],
+                scrollX: true,
+                responsive: true,
+                paging: true,
+                "fnDrawCallback": function (setting) {
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                    },
+                    {
+                        data: 'no_peminjaman',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: 'user.member.nama',
+                        className: 'middle-header',
+                    },
+                    {
+                        data: 'user.member.no_hp',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                        render: function (data) {
+                            let id = data['id'];
+                            let urlDetail = path + '/' + id + '/peminjaman-proses';
+                            return '<div class="w-100 d-flex justify-content-center align-items-center gap-1">' +
+                                '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action" data-id="' + id + '"><span class="material-symbols-outlined" style="font-size: 0.8em;">more_vert</span></a>' +
+                                '</div>';
+                        }
+                    }
+                ],
+            });
+        }
+
+        function generateTableFinish() {
+            tableFinish = $('#table-data-finish-order').DataTable({
+                ajax: {
+                    type: 'GET',
+                    url: path,
+                    'data': function (d) {
+                        d.status = 4
+                    }
+                },
+                "aaSorting": [],
+                "order": [],
+                scrollX: true,
+                responsive: true,
+                paging: true,
+                "fnDrawCallback": function (setting) {
+                },
+                columns: [
+                    {
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        searchable: false,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                    },
+                    {
+                        data: 'tanggal_pinjam',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: 'no_peminjaman',
+                        className: 'middle-header text-center',
+                    },
+                    {
+                        data: 'user.member.nama',
+                        className: 'middle-header',
+                    },
+                    {
+                        data: 'sub_total',
+                        className: 'middle-header text-end',
+                        render: function (data) {
+                            return data.toLocaleString('id-ID');
+                        }
+                    },
+                    {
+                        data: 'denda',
+                        className: 'middle-header text-end',
+                        render: function (data) {
+                            return data.toLocaleString('id-ID');
+                        }
+                    },
+                    {
+                        data: 'total',
+                        className: 'middle-header text-end',
+                        render: function (data) {
+                            return data.toLocaleString('id-ID');
+                        }
+                    },
+                    {
+                        data: null,
+                        orderable: false,
+                        className: 'text-center middle-header',
+                        render: function (data) {
+                            let id = data['id'];
+                            let urlDetail = path + '/' + id + '/peminjaman-selesai';
+                            return '<div class="w-100 d-flex justify-content-center align-items-center gap-1">' +
+                                '<a style="color: var(--dark-tint)" href="' + urlDetail + '" class="btn-table-action" data-id="' + id + '"><span class="material-symbols-outlined" style="font-size: 0.8em;">more_vert</span></a>' +
+                                '</div>';
+                        }
+                    }
+                ],
+            });
+        }
+
+        function eventChangeTab() {
+            $('#transaction-tab').on('shown.bs.tab', function (e) {
+                if (e.target.id === 'pills-ready-tab') {
+                    tableReady.columns.adjust();
+                }
+
+                if (e.target.id === 'pills-process-tab') {
+                    tableProcess.columns.adjust();
+                }
+
+                if (e.target.id === 'pills-finish-tab') {
+                    tableFinish.columns.adjust();
+                }
+            })
+        }
         $(document).ready(function () {
             generateTableNewOrder();
+            generateTableReady();
+            generateTableProcess();
+            generateTableFinish();
+            eventChangeTab();
         });
     </script>
 @endsection

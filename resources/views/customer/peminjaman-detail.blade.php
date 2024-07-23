@@ -47,7 +47,7 @@
                             <div class="chip-status-info">barang siap diambil</div>
                         @elseif($data->status === 4)
                             <div class="chip-status-info">sedang meminjam</div>
-                        @elseif($data->status === 4)
+                        @elseif($data->status === 5)
                             <div class="chip-status-success">selesai</div>
                         @endif
                     </span>
@@ -74,14 +74,18 @@
                                         <td width="5%" class="text-center">{{ $loop->index + 1 }}</td>
                                         <td width="10%" class="text-center">
                                             <div class="d-flex justify-content-center w-100">
-                                                <a href="{{ asset($keranjang->product->kategori->gambar) }}" target="_blank" class="box-product-image">
-                                                    <img src="{{ asset($keranjang->product->kategori->gambar) }}" alt="product-image" />
+                                                <a href="{{ asset($keranjang->product->kategori->gambar) }}"
+                                                   target="_blank" class="box-product-image">
+                                                    <img src="{{ asset($keranjang->product->kategori->gambar) }}"
+                                                         alt="product-image"/>
                                                 </a>
                                             </div>
                                         </td>
-                                        <td width="15%" class="text-center">{{ $keranjang->product->kategori->nama }}</td>
+                                        <td width="15%"
+                                            class="text-center">{{ $keranjang->product->kategori->nama }}</td>
                                         <td>{{ $keranjang->product->nama }}</td>
-                                        <td width="10%" class="text-end">{{ number_format($keranjang->product->harga, 0, ',', '.') }}</td>
+                                        <td width="10%"
+                                            class="text-end">{{ number_format($keranjang->product->harga, 0, ',', '.') }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -92,21 +96,39 @@
                 <div class="card-content" style="width: 350px; height: fit-content;">
                     <p style="font-size: 1em; font-weight: bold; color: var(--dark);">Ringkasan Belanja</p>
                     <hr class="custom-divider"/>
-                    <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
-                        <span style="color: var(--dark-tint); font-size: 0.8em">Total</span>
-                        <span id="lbl-sub-total"
-                              style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->total, 0, ',', '.') }}</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-3" style="font-size: 1em;">
-                        <span style="color: var(--dark-tint); font-size: 0.8em">DP</span>
-                        <span id="lbl-shipment"
-                              style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->dp, 0, ',', '.') }}</span>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
-                        <span style="color: var(--dark-tint); font-size: 0.8em">Kekurangan</span>
-                        <span id="lbl-total"
-                              style="color: var(--dark); font-weight: bold;">Rp{{ number_format($data->kekurangan, 0, ',', '.') }}</span>
-                    </div>
+                    @if($data->status === 5)
+                        <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">Sub Total</span>
+                            <span id="lbl-sub-total"
+                                  style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->sub_total, 0, ',', '.') }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-3" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">Denda</span>
+                            <span id="lbl-shipment"
+                                  style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->denda, 0, ',', '.') }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">Total</span>
+                            <span id="lbl-total"
+                                  style="color: var(--dark); font-weight: bold;">Rp{{ number_format($data->total, 0, ',', '.') }}</span>
+                        </div>
+                    @else
+                        <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">Total</span>
+                            <span id="lbl-sub-total"
+                                  style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->total, 0, ',', '.') }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-3" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">DP</span>
+                            <span id="lbl-shipment"
+                                  style="color: var(--dark); font-weight: 600;">Rp{{ number_format($data->dp, 0, ',', '.') }}</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
+                            <span style="color: var(--dark-tint); font-size: 0.8em">Kekurangan</span>
+                            <span id="lbl-total"
+                                  style="color: var(--dark); font-weight: bold;">Rp{{ number_format($data->kekurangan, 0, ',', '.') }}</span>
+                        </div>
+                    @endif
 
                     @if($data->status === 0 || $data->status === 2)
                         <hr class="custom-divider"/>

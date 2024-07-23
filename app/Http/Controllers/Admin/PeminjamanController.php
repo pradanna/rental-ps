@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Helper\CustomController;
+use App\Models\Denda;
 use App\Models\Keranjang;
-use App\Models\Penjualan;
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -31,18 +32,25 @@ class PeminjamanController extends CustomController
             }
 
             if ($status === '2') {
-                $rangeStatus = [3, 4, 5];
-                $data = Transaksi::with([])
+                $rangeStatus = [3];
+                $data = Transaksi::with(['user.member'])
                     ->whereIn('status', $rangeStatus)
                     ->orderBy('updated_at', 'ASC')
-                    ->get();
+                    ->get()->append(['kekurangan']);
             }
 
             if ($status === '3') {
-                $data = Transaksi::with([])
-                    ->where('status', '=', 6)
+                $data = Transaksi::with(['user.member'])
+                    ->where('status', '=', 4)
                     ->orderBy('updated_at', 'ASC')
-                    ->get();
+                    ->get()->append(['kekurangan']);
+            }
+
+            if ($status === '4') {
+                $data = Transaksi::with(['user.member'])
+                    ->where('status', '=', 5)
+                    ->orderBy('updated_at', 'ASC')
+                    ->get()->append(['kekurangan']);
             }
 
             return $this->basicDataTables($data);
@@ -65,6 +73,68 @@ class PeminjamanController extends CustomController
             ->findOrFail($id)->append(['kekurangan']);
         return view('admin.peminjaman.detail.baru')->with([
             'data' => $data
+        ]);
+    }
+
+    public function detail_ready($id)
+    {
+        if ($this->request->ajax()) {
+            if ($this->request->method() === 'POST') {
+                return $this->confirm_to_process($id);
+            }
+            $data = Keranjang::with(['product.kategori'])
+                ->where('transaksi_id', '=', $id)
+                ->get();
+            return $this->basicDataTables($data);
+        }
+        $data = Transaksi::with(['pembayaran_status', 'keranjang'])
+            ->where('status', '=', 3)
+            ->findOrFail($id)->append(['kekurangan']);
+        return view('admin.peminjaman.detail.ready')->with([
+            'data' => $data
+        ]);
+    }
+
+    public function detail_process($id)
+    {
+        $data = Transaksi::with(['pembayaran_status', 'keranjang'])
+            ->where('status', '=', 4)
+            ->findOrFail($id)->append(['kekurangan']);
+
+        $denda = Denda::with([])
+            ->first();
+        $intDenda = 0;
+        if ($denda) {
+            $intDenda = $denda->nominal;
+        }
+
+        $kekurangan = $data->kekurangan;
+
+        $now = Carbon::now();
+        $dateReturn = Carbon::parse($data->tanggal_kembali);
+        $diff = $dateReturn->diffInDays($now, false);
+        $keterlambatan = 0;
+        if ($diff > 0) {
+            $keterlambatan = $diff;
+        }
+
+        $total_denda = ($keterlambatan * $intDenda);
+        if ($this->request->ajax()) {
+            if ($this->request->method() === 'POST') {
+                return $this->confirm_to_finish($id, $total_denda);
+            }
+            $data = Keranjang::with(['product.kategori'])
+                ->where('transaksi_id', '=', $id)
+                ->get();
+            return $this->basicDataTables($data);
+        }
+
+        return view('admin.peminjaman.detail.proses')->with([
+            'data' => $data,
+            'denda' => $intDenda,
+            'kekurangan' => $kekurangan,
+            'keterlambatan' => $keterlambatan,
+            'total_denda' => ($intDenda * $keterlambatan)
         ]);
     }
 
@@ -104,6 +174,50 @@ class PeminjamanController extends CustomController
             return $this->jsonSuccessResponse('success', 'Berhasil merubah data product...');
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->jsonErrorResponse($e->getMessage());
+        }
+    }
+
+    private function confirm_to_process($id)
+    {
+        try {
+            $order = Transaksi::with(['pembayaran_status'])
+                ->where('id', '=', $id)
+                ->first();
+            if (!$order) {
+                return $this->jsonNotFoundResponse('data tidak ditemukan...');
+            }
+            $data_request_order = [
+                'status' => 4,
+            ];
+            $order->update($data_request_order);
+            return $this->jsonSuccessResponse('success', 'Berhasil merubah data product...');
+        } catch (\Exception $e) {
+            return $this->jsonErrorResponse($e->getMessage());
+        }
+    }
+
+    private function confirm_to_finish($id, $total_denda)
+    {
+        try {
+            $order = Transaksi::with(['pembayaran_status'])
+                ->where('id', '=', $id)
+                ->first();
+            if (!$order) {
+                return $this->jsonNotFoundResponse('data tidak ditemukan...');
+            }
+
+            $subTotal = $order->sub_total;
+            $total = $subTotal + $total_denda;
+            $data_request_order = [
+                'status' => 5,
+                'denda' => $total_denda,
+                'total' => $total,
+                'lunas' => true
+            ];
+            $order->update($data_request_order);
+            return $this->jsonSuccessResponse('success', 'Berhasil merubah data product...');
+        } catch (\Exception $e) {
             return $this->jsonErrorResponse($e->getMessage());
         }
     }
