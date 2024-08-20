@@ -67,7 +67,7 @@
                     </a>
                 </li>
 
-                @if(auth()->user()->role === 'owner')
+                @if(auth()->user()->role === 'pimpinan')
                     <li>
                         <a class="menu tooltip {{ Request::is('admin/pengguna*') ? 'active' : '' }}"
                            href="{{ route('admin.pengguna') }}"><span class="material-symbols-outlined">
