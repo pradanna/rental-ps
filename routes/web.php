@@ -33,7 +33,7 @@ Route::group(['prefix' => 'keranjang'], function () {
 Route::group(['prefix' => 'transaksi'], function () {
     Route::get('/', [\App\Http\Controllers\Customer\PeminjamanController::class, 'index'])->name('customer.transaction');
     Route::get('/{id}', [\App\Http\Controllers\Customer\PeminjamanController::class, 'detail'])->name('customer.transaction.detail');
-    Route::match(['post', 'get'],'/{id}/pembayaran', [\App\Http\Controllers\Customer\PembayaranController::class, 'index'])->name('customer.transaction.payment');
+    Route::match(['post', 'get'], '/{id}/pembayaran', [\App\Http\Controllers\Customer\PembayaranController::class, 'index'])->name('customer.transaction.payment');
 });
 
 Route::get('/bayar', function () {
@@ -72,12 +72,17 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/{id}/delete', [\App\Http\Controllers\Admin\UnitController::class, 'delete'])->name('admin.barang.delete');
     });
 
-    Route::group(['prefix' => 'peminjaman'], function (){
+    Route::group(['prefix' => 'peminjaman'], function () {
         Route::get('/', [\App\Http\Controllers\Admin\PeminjamanController::class, 'index'])->name('admin.transaction');
-        Route::match(['post', 'get'],'/{id}/peminjaman-baru', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_new'])->name('admin.transaction.new');
-        Route::match(['post', 'get'],'/{id}/siap-diambil', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_ready'])->name('admin.transaction.ready');
-        Route::match(['post', 'get'],'/{id}/peminjaman-proses', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_process'])->name('admin.transaction.process');
+        Route::match(['post', 'get'], '/{id}/peminjaman-baru', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_new'])->name('admin.transaction.new');
+        Route::match(['post', 'get'], '/{id}/siap-diambil', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_ready'])->name('admin.transaction.ready');
+        Route::match(['post', 'get'], '/{id}/peminjaman-proses', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_process'])->name('admin.transaction.process');
     });
+    Route::group(['prefix' => 'laporan'], function () {
+        Route::get('/', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.report');
+        Route::get('/cetak', [\App\Http\Controllers\Admin\ReportController::class, 'pdf'])->name('admin.report.print');
+    });
+
 });
 
 //Route::get('/admin', function () {

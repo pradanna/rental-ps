@@ -32,7 +32,6 @@ class ProductController extends CustomController
         $product = Product::with(['kategori'])
             ->where('kategori_id', '=', $id)
             ->findOrFail($product_id);
-//        dd($product->toArray());
         if ($this->request->method() === 'POST') {
             return $this->store($product);
         }
