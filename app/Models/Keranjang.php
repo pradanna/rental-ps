@@ -27,4 +27,9 @@ class Keranjang extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaksi::class, 'transaksi_id');
+    }
 }

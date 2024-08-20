@@ -18,6 +18,7 @@ class HomeController extends CustomController
     {
         $categories = Kategori::with(['product'])
             ->get()->append('count_product');
+//        dd($categories->toArray());
         return view('customer.home')->with([
             'categories' => $categories
         ]);

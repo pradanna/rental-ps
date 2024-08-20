@@ -65,6 +65,12 @@
                         <input type="hidden" name="diff_date" value="0" id="diff_date">
                         <div class="w-100">
                             <div class="w-100 mb-1">
+                                <label for="date_rent" class="form-label input-label">Tanggal Pinjam</label>
+                                <input type="date" class="text-input"
+                                       id="date_rent"
+                                       name="date_rent" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"/>
+                            </div>
+                            <div class="w-100 mb-1">
                                 <label for="date_return" class="form-label input-label">Tanggal Kembali</label>
                                 <input type="date" class="text-input"
                                        id="date_return"
@@ -82,7 +88,12 @@
                     <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
                         <span style="color: var(--dark-tint); font-size: 0.8em">Total</span>
                         <span id="lbl-sub-total"
-                              style="color: var(--dark); font-weight: 600;">Rp{{ number_format($total, 0, ',', '.') }}</span>
+                              style="color: var(--dark); font-weight: 600;">Rp.0</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between mb-1" style="font-size: 1em;">
+                        <span style="color: var(--dark-tint); font-size: 0.8em">Kekurangan</span>
+                        <span id="lbl-rest"
+                              style="color: var(--dark); font-weight: 600;">Rp.0</span>
                     </div>
                     <hr class="custom-divider"/>
                     <button class="btn-action-primary mb-1" id="btn-checkout"
@@ -194,25 +205,57 @@
 
         function eventChangeTotal() {
             $('#date_return').on('change', function (e) {
-                let now = new Date();
-                let returnDateString = $('#date_return').val();
-                let returnDate = new Date(returnDateString);
-                let diffInTime = returnDate.getTime() - now.getTime();
-                let diffInDays = Math.round(diffInTime / (1000 * 3600 * 24));
-                let subTotal = parseInt(totalSTR);
-                let total = subTotal * diffInDays;
-                let totalString = total.toLocaleString('id-ID');
-                $('#lbl-sub-total').html('Rp.' + totalString);
-                $('#diff_date').val(diffInDays);
-                console.log(diffInDays);
+                changeTotalHandler();
+                changeDPHandler();
             });
 
+            $('#date_rent').on('change', function (e) {
+                changeTotalHandler();
+                changeDPHandler();
+            });
         }
+
+        function changeTotalHandler() {
+            let rentDateString = $('#date_rent').val();
+            let returnDateString = $('#date_return').val();
+            let rentDate = new Date(rentDateString);
+            let returnDate = new Date(returnDateString);
+            let diffInTime = returnDate.getTime() - rentDate.getTime();
+            let diffInDays = Math.round(diffInTime / (1000 * 3600 * 24));
+            let subTotal = parseInt(totalSTR);
+            let total = subTotal * diffInDays;
+            let totalString = total.toLocaleString('id-ID');
+            $('#lbl-sub-total').html('Rp.' + totalString);
+            $('#diff_date').val(diffInDays);
+            return total;
+        }
+
+        async function eventChangeDP() {
+            $("#dp").keyup(
+                debounce(function (e) {
+                    console.log(e.currentTarget.value);
+                    changeDPHandler();
+                }, 500)
+            );
+        }
+
+        function changeDPHandler() {
+            let dpString = $('#dp').val();
+            let total = changeTotalHandler();
+            let dp = 0;
+            if (dpString !== '') {
+                dp = parseInt(dpString);
+            }
+            let rest = total - dp;
+            $('#lbl-rest').html('Rp.' + rest.toLocaleString('id-ID'));
+        }
+
 
         $(document).ready(function () {
             generateTable();
             eventCheckout();
             eventChangeTotal();
+            eventChangeDP();
         })
     </script>
 @endsection

@@ -50,6 +50,18 @@
     <link href="{{ asset('/css/sweetalert2.css') }}" rel="stylesheet">
     <script src="{{ asset('/js/sweetalert2.min.js') }}"></script>
     @yield('morecss')
+    <style>
+        .link-login .text-login {
+            font-size: 0.8em;
+            margin-left: 0.5rem;
+            color: gray;
+        }
+
+        .link-login:hover {
+            background-color: transparent !important;
+        }
+
+    </style>
 
 </head>
 
@@ -94,10 +106,11 @@
 {{--                </span>--}}
 {{--            </a>--}}
         @else
-            <a href="{{ route('login') }}">
+            <a href="{{ route('login') }}" class="link-login">
                 <span class="material-symbols-outlined" style="color: var(--dark); font-size: 0.8em;">
                     person
                 </span>
+                <span class="text-login">Login</span>
             </a>
         @endauth
 

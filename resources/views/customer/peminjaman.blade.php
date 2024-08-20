@@ -30,7 +30,7 @@
                         <th width="10%" class="text-end">DP</th>
                         <th width="10%" class="text-end">Kekurangan</th>
                         <th width="13%" class="text-center">Status</th>
-                        <th width="8%" class="text-center"></th>
+                        <th width="8%" class="text-center">Detail</th>
                     </tr>
                     </thead>
                 </table>

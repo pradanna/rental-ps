@@ -54,10 +54,26 @@
                         @csrf
                     </form>
                     @auth()
-                        <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}"
-                           style="height: fit-content; font-size: 1em;">Keranjang</button>
+                        @if($product->on_rent !== null)
+                            @if($product->on_rent->status === 4 || $product->on_rent->status === 3)
+                                <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}"
+                                        style="height: fit-content; font-size: 1em;" data-rent="active">Keranjang
+                                </button>
+                            @else
+                                <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}"
+                                        style="height: fit-content; font-size: 1em;" data-rent="inactive">Keranjang
+                                </button>
+                            @endif
+                        @else
+                            <button class="btn-cart" id="btn-cart" data-id="{{ $product->id }}"
+                                    style="height: fit-content; font-size: 1em;">Keranjang
+                            </button>
+                        @endif
                     @else
-                        <a href="{{ route('login') }}" class="btn-cart" style="height: fit-content; font-size: 1em;">Keranjang</a>
+
+                        <a href="{{ route('login') }}" class="btn-cart"
+                           style="height: fit-content; font-size: 1em;">Keranjang</a>
+
                     @endauth
                 </div>
             </div>
@@ -70,10 +86,17 @@
     <script>
         function eventSave() {
             $('#btn-cart').on('click', function (e) {
+                let rentStatus = this.dataset.rent;
                 e.preventDefault();
-                AlertConfirm('Konfirmasi!', 'Apakah anda yakin ingin menambah keranjang?', function () {
-                    $('#form-data').submit();
-                })
+                if (rentStatus === 'active') {
+                    ErrorAlert('Ooops', 'Unit Sedang dalam peminjaman...')
+                } else {
+                    AlertConfirm('Konfirmasi!', 'Apakah anda yakin ingin menambah keranjang?', function () {
+                        $('#form-data').submit();
+                    })
+                }
+
+
             });
         }
 

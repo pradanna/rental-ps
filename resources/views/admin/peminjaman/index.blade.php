@@ -81,7 +81,7 @@
                             <th width="10%" class="text-end">Total</th>
                             <th width="10%" class="text-end">DP</th>
                             <th width="10%" class="text-end">Kekurangan</th>
-                            <th width="8%" class="text-center"></th>
+                            <th width="8%" class="text-center">Detail</th>
                         </tr>
                         </thead>
                     </table>
@@ -100,7 +100,7 @@
                             <th width="20%" class="text-center">No. Peminjaman</th>
                             <th>Nama</th>
                             <th width="15%" class="text-center">No. HP</th>
-                            <th width="8%" class="text-center"></th>
+                            <th width="8%" class="text-center">Detail</th>
                         </tr>
                         </thead>
                     </table>
@@ -119,7 +119,7 @@
                             <th width="20%" class="text-center">No. Peminjaman</th>
                             <th>Nama</th>
                             <th width="15%" class="text-center">No. HP</th>
-                            <th width="8%" class="text-center"></th>
+                            <th width="8%" class="text-center">Detail</th>
                         </tr>
                         </thead>
                     </table>
@@ -142,7 +142,7 @@
                             <th width="15%" class="text-end">Sub Total</th>
                             <th width="15%" class="text-end">Denda</th>
                             <th width="15%" class="text-end">Total</th>
-                            <th width="8%" class="text-center"></th>
+                            <th width="8%" class="text-center">Detail</th>
                         </tr>
                         </thead>
                     </table>
