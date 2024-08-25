@@ -77,6 +77,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::match(['post', 'get'], '/{id}/peminjaman-baru', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_new'])->name('admin.transaction.new');
         Route::match(['post', 'get'], '/{id}/siap-diambil', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_ready'])->name('admin.transaction.ready');
         Route::match(['post', 'get'], '/{id}/peminjaman-proses', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_process'])->name('admin.transaction.process');
+        Route::match(['post', 'get'], '/{id}/peminjaman-selesai', [\App\Http\Controllers\Admin\PeminjamanController::class, 'detail_finish'])->name('admin.transaction.finish');
+        Route::match(['post', 'get'], '/{id}/peminjaman-selesai/cetak', [\App\Http\Controllers\Admin\PeminjamanController::class, 'nota'])->name('admin.transaction.finish.nota');
     });
     Route::group(['prefix' => 'laporan'], function () {
         Route::get('/', [\App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.report');

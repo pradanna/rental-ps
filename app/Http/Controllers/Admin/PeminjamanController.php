@@ -138,6 +138,83 @@ class PeminjamanController extends CustomController
         ]);
     }
 
+    public function detail_finish($id)
+    {
+        $data = Transaksi::with(['pembayaran_status', 'keranjang'])
+            ->where('status', '=', 5)
+            ->findOrFail($id)->append(['kekurangan']);
+
+        if ($this->request->ajax()) {
+            $data = Keranjang::with(['product.kategori'])
+                ->where('transaksi_id', '=', $id)
+                ->get();
+            return $this->basicDataTables($data);
+        }
+
+        $denda = Denda::with([])
+            ->first();
+        $intDenda = 0;
+        if ($denda) {
+            $intDenda = $denda->nominal;
+        }
+
+        $kekurangan = $data->kekurangan;
+
+        $now = Carbon::now();
+        $dateReturn = Carbon::parse($data->tanggal_kembali);
+        $diff = $dateReturn->diffInDays($now, false);
+        $keterlambatan = 0;
+        if ($diff > 0) {
+            $keterlambatan = $diff;
+        }
+
+        $total_denda = ($keterlambatan * $intDenda);
+//        $data = Transaksi::with(['pembayaran_status', 'keranjang'])
+//            ->where('status', '=', 5)
+//            ->findOrFail($id)->append(['kekurangan']);
+        return view('admin.peminjaman.detail.selesai')->with([
+            'data' => $data,
+            'denda' => $intDenda,
+            'kekurangan' => $kekurangan,
+            'keterlambatan' => $keterlambatan,
+            'total_denda' => ($intDenda * $keterlambatan)
+        ]);
+    }
+
+    public function nota($id)
+    {
+        $data = Transaksi::with(['pembayaran_status', 'keranjang.product.kategori'])
+            ->where('status', '=', 5)
+            ->findOrFail($id)->append(['kekurangan']);
+
+        $denda = Denda::with([])
+            ->first();
+        $intDenda = 0;
+        if ($denda) {
+            $intDenda = $denda->nominal;
+        }
+
+        $kekurangan = $data->kekurangan;
+
+        $now = Carbon::now();
+        $dateReturn = Carbon::parse($data->tanggal_kembali);
+        $diff = $dateReturn->diffInDays($now, false);
+        $keterlambatan = 0;
+        if ($diff > 0) {
+            $keterlambatan = $diff;
+        }
+
+        $total_denda = ($keterlambatan * $intDenda);
+        return $this->convertToPdf('admin.laporan.bukti', [
+            'data' => $data,
+            'denda' => $intDenda,
+            'kekurangan' => $kekurangan,
+            'keterlambatan' => $keterlambatan,
+            'total_denda' => ($intDenda * $keterlambatan)
+        ]);
+
+    }
+
     private function confirm_order($id)
     {
         DB::beginTransaction();
