@@ -75,5 +75,17 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-xs-8"></div>
+    <div class="col-xs-3">
+        <div class="text-center">
+            <p class="text-center">{{ \Carbon\Carbon::now()->format('Y-m-d') }}</p>
+            <br>
+            <br>
+            <br>
+            <p class="text-center">Admin</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
